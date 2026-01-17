@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Calendar, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Blog } from '../blogSlice';
+import { Blog } from '../../../types';
 import { User as SupabaseUser } from '@supabase/supabase-js';
 
 interface BlogCardProps {
