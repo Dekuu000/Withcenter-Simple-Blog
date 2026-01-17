@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { fetchBlogById, deleteBlog } from '../features/blog/blogSlice';
 import { Loader2, Calendar, User, Edit2, Trash2, ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
+import ConfirmModal from '../components/ConfirmModal';
+import MessageModal from '../components/MessageModal';
 
 export default function ViewBlog() {
     const { id } = useParams<{ id: string }>();
@@ -12,6 +14,10 @@ export default function ViewBlog() {
     const dispatch = useAppDispatch();
     const { currentBlog, loading, error } = useAppSelector((state) => state.blog);
     const { user } = useAppSelector((state) => state.auth);
+
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [deleteSuccess, setDeleteSuccess] = useState(false);
 
     const backLink = location.state?.from || '/';
     const backLabel = location.state?.label || 'Back to all posts';
@@ -22,15 +28,26 @@ export default function ViewBlog() {
         }
     }, [dispatch, id]);
 
-    const handleDelete = async () => {
-        if (window.confirm('Are you sure you want to delete this blog? This action cannot be undone.')) {
-            try {
-                await dispatch(deleteBlog(id!)).unwrap();
-                navigate('/');
-            } catch (err) {
-                alert('Failed to delete blog');
-            }
+    const handleDeleteClick = () => {
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!id) return;
+        setIsDeleting(true);
+        try {
+            await dispatch(deleteBlog(id)).unwrap();
+            setIsDeleteModalOpen(false);
+            setDeleteSuccess(true);
+        } catch (err) {
+            alert('Failed to delete blog');
+            setIsDeleting(false);
         }
+    };
+
+    const handleSuccessClose = () => {
+        setDeleteSuccess(false);
+        navigate('/');
     };
 
     if (loading) {
@@ -79,7 +96,7 @@ export default function ViewBlog() {
                                 <Edit2 className="w-5 h-5" />
                             </Link>
                             <button
-                                onClick={handleDelete}
+                                onClick={handleDeleteClick}
                                 className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
                                 title="Delete Post"
                             >
@@ -148,6 +165,26 @@ export default function ViewBlog() {
                     </div>
                 </div>
             </article>
+
+            {/* Modals */}
+            <ConfirmModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                onConfirm={handleConfirmDelete}
+                title="Delete Story"
+                message="Are you sure you want to delete this story? This action cannot be undone."
+                confirmText="Delete"
+                isDangerous={true}
+                isLoading={isDeleting}
+            />
+
+            <MessageModal
+                isOpen={deleteSuccess}
+                onClose={handleSuccessClose}
+                title="Deleted"
+                message="Your story has been successfully deleted."
+                type="success"
+            />
         </div>
     );
 }

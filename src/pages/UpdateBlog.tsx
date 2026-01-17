@@ -3,13 +3,26 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { fetchBlogById, updateBlog, clearCurrentBlog } from '../features/blog/blogSlice';
 import { Loader2 } from 'lucide-react';
+import MessageModal from '../components/MessageModal';
 
 export default function UpdateBlog() {
     const { id } = useParams<{ id: string }>();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+
+    // Modal State
+    const [messageModal, setMessageModal] = useState<{
+        isOpen: boolean;
+        type: 'success' | 'error';
+        title: string;
+        message: string;
+    }>({
+        isOpen: false,
+        type: 'success',
+        title: '',
+        message: '',
+    });
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -42,15 +55,35 @@ export default function UpdateBlog() {
         if (!id || !user) return;
 
         setIsSubmitting(true);
-        setError(null);
 
         try {
             await dispatch(updateBlog({ id, title, content })).unwrap();
-            navigate(`/blog/${id}`);
+
+            // Show Success Modal
+            setMessageModal({
+                isOpen: true,
+                type: 'success',
+                title: 'Update Successful',
+                message: 'Your story has been successfully updated.'
+            });
+
         } catch (err: any) {
-            setError(err.message || 'Failed to update blog');
+            // Show Error Modal
+            setMessageModal({
+                isOpen: true,
+                type: 'error',
+                title: 'Update Failed',
+                message: err.message || 'Failed to update blog. Please try again.'
+            });
         } finally {
             setIsSubmitting(false);
+        }
+    };
+
+    const handleModalClose = () => {
+        setMessageModal(prev => ({ ...prev, isOpen: false }));
+        if (messageModal.type === 'success' && id) {
+            navigate(`/blog/${id}`);
         }
     };
 
@@ -69,12 +102,6 @@ export default function UpdateBlog() {
                     <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Edit Story</h1>
                     <p className="text-gray-500 mt-2">Refine your masterpiece.</p>
                 </div>
-
-                {error && (
-                    <div className="max-w-4xl mx-auto bg-red-50 text-red-600 p-4 rounded-lg mb-8 border border-red-100 flex items-center text-sm shadow-sm">
-                        <span className="mr-2">⚠️</span> {error}
-                    </div>
-                )}
 
                 <div className="bg-white shadow-xl shadow-gray-100/50 rounded-2xl border border-gray-100 overflow-hidden max-w-5xl mx-auto">
                     <form onSubmit={handleSubmit} className="p-6 sm:p-10 space-y-8">
@@ -146,6 +173,14 @@ export default function UpdateBlog() {
                         </div>
                     </form>
                 </div>
+
+                <MessageModal
+                    isOpen={messageModal.isOpen}
+                    onClose={handleModalClose}
+                    title={messageModal.title}
+                    message={messageModal.message}
+                    type={messageModal.type}
+                />
             </div>
         </div>
     );
