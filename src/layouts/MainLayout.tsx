@@ -48,9 +48,6 @@ export default function MainLayout() {
                     <nav className="flex items-center gap-4">
                         {user ? (
                             <>
-                                <Link to="/create-blog" className="text-sm font-medium text-gray-700 hover:text-indigo-600">
-                                    Write
-                                </Link>
                                 <UserProfileMenu user={user} onLogout={handleLogout} />
                             </>
                         ) : (
