@@ -3,12 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { createBlog } from '../features/blog/blogSlice';
 import { Loader2 } from 'lucide-react';
+import MessageModal from '../components/MessageModal';
 
 export default function CreateBlog() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+
+    // Modal State
+    const [messageModal, setMessageModal] = useState<{
+        isOpen: boolean;
+        type: 'success' | 'error';
+        title: string;
+        message: string;
+    }>({
+        isOpen: false,
+        type: 'success',
+        title: '',
+        message: '',
+    });
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -19,15 +32,35 @@ export default function CreateBlog() {
         if (!user) return;
 
         setIsSubmitting(true);
-        setError(null);
 
         try {
             await dispatch(createBlog({ title, content, author_id: user.id })).unwrap();
-            navigate('/');
+
+            // Show Success Modal
+            setMessageModal({
+                isOpen: true,
+                type: 'success',
+                title: 'Published Successfully',
+                message: 'Your story has been published and is now live for everyone to see.'
+            });
+
         } catch (err: any) {
-            setError(err.message || 'Failed to create blog');
+            // Show Error Modal
+            setMessageModal({
+                isOpen: true,
+                type: 'error',
+                title: 'Publishing Failed',
+                message: err.message || 'Failed to publish story. Please try again.'
+            });
         } finally {
             setIsSubmitting(false);
+        }
+    };
+
+    const handleModalClose = () => {
+        setMessageModal(prev => ({ ...prev, isOpen: false }));
+        if (messageModal.type === 'success') {
+            navigate('/');
         }
     };
 
@@ -38,12 +71,6 @@ export default function CreateBlog() {
                     <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Draft a New Story</h1>
                     <p className="text-gray-500 mt-2">Share your ideas with the world.</p>
                 </div>
-
-                {error && (
-                    <div className="max-w-4xl mx-auto bg-red-50 text-red-600 p-4 rounded-lg mb-8 border border-red-100 flex items-center text-sm shadow-sm">
-                        <span className="mr-2">⚠️</span> {error}
-                    </div>
-                )}
 
                 <div className="bg-white shadow-xl shadow-gray-100/50 rounded-2xl border border-gray-100 overflow-hidden max-w-5xl mx-auto">
                     <form onSubmit={handleSubmit} className="p-6 sm:p-10 space-y-8">
@@ -116,6 +143,14 @@ export default function CreateBlog() {
                         </div>
                     </form>
                 </div>
+
+                <MessageModal
+                    isOpen={messageModal.isOpen}
+                    onClose={handleModalClose}
+                    title={messageModal.title}
+                    message={messageModal.message}
+                    type={messageModal.type}
+                />
             </div>
         </div>
     );
