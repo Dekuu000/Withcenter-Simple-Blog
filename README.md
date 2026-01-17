@@ -15,11 +15,12 @@ BlogApp is a full-featured blogging application that demonstrates authentication
 
 ## ✨ Key Features
 
-*   **🔐 User Authentication**: Secure Login/Register flows using Supabase Auth.
+*   **🔐 User Authentication**: Secure Login/Register flows using Supabase Auth with strict email format validation.
 *   **📝 Content Management**: Create, Edit, and Delete blog posts with a polished editor UI.
 *   **👤 Author Profiles**: Automatic profile generation for new users; display generic avatars or custom data.
 *   **📄 Pagination**: Server-side pagination for optimized performance with large datasets.
 *   **📂 My Posts**: Filtered dashboard for authors to manage their own content.
+*   **💬 Interactive Feedback**: Professional confirmation modals and auto-dismissing success/error feedback.
 *   **🔒 Security**: Row Level Security (RLS) ensures users can only modify their own posts.
 
 ## 🛠️ Architecture Overview

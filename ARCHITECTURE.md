@@ -54,6 +54,7 @@ Security is enforced at multiple layers:
     *   `ProtectedRoute` wrapper redirects unauthenticated users away from `/create-blog` and `/my-posts`.
 2.  **Logic Level (UI)**:
     *   Edit/Delete buttons are conditionally rendered only for the post author.
+    *   **Feedback Layer**: Modals and Toasts provide immediate, accessible feedback for all CRUD actions.
 3.  **Database Level (RLS)**:
     *   **Select**: Public (`true`).
     *   **Insert**: Authenticated users only.
