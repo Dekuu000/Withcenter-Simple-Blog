@@ -15,6 +15,7 @@ export default function BlogList() {
 
     useEffect(() => {
         dispatch(fetchBlogs({ page, limit }));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [dispatch, page]);
 
     const totalPages = Math.ceil(totalCount / limit);
