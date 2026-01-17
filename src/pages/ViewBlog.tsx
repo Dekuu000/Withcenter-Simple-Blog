@@ -47,8 +47,22 @@ export default function ViewBlog() {
 
     const handleSuccessClose = () => {
         setDeleteSuccess(false);
-        navigate('/');
+        navigate('/my-posts');
     };
+
+    if (deleteSuccess) {
+        return (
+            <div className="min-h-screen bg-gray-50/30 py-12 px-4 sm:px-6 animate-fade-in">
+                <MessageModal
+                    isOpen={deleteSuccess}
+                    onClose={handleSuccessClose}
+                    title="Deleted"
+                    message="Your story has been successfully deleted."
+                    type="success"
+                />
+            </div>
+        );
+    }
 
     if (loading) {
         return (
