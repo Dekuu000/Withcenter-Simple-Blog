@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Modal from './Modal';
 import { CheckCircle, XCircle } from 'lucide-react';
 
@@ -7,10 +8,28 @@ interface MessageModalProps {
     title: string;
     message: string;
     type?: 'success' | 'error';
+    autoCloseDuration?: number; // Optional duration in ms
 }
 
-export default function MessageModal({ isOpen, onClose, title, message, type = 'success' }: MessageModalProps) {
+export default function MessageModal({
+    isOpen,
+    onClose,
+    title,
+    message,
+    type = 'success',
+    autoCloseDuration = 3000 // Default 3 seconds
+}: MessageModalProps) {
     const isSuccess = type === 'success';
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        if (isOpen && autoCloseDuration > 0) {
+            timer = setTimeout(() => {
+                onClose();
+            }, autoCloseDuration);
+        }
+        return () => clearTimeout(timer);
+    }, [isOpen, autoCloseDuration, onClose]);
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} title={title}>
