@@ -76,18 +76,18 @@ export default function UserProfileMenu({ user, onLogout }: UserProfileMenuProps
                     <div className="px-1 space-y-0.5">
                         <Link
                             to="/profile"
-                            className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-lg transition-colors group"
+                            className="flex items-center gap-2.5 px-3 py-2 text-sm text-brand-dark hover:bg-brand-bg/50 hover:text-brand-primary rounded-lg transition-colors group"
                             onClick={() => setIsOpen(false)}
                         >
-                            <UserIcon className="w-4 h-4 text-gray-400 group-hover:text-indigo-500" />
+                            <UserIcon className="w-4 h-4 text-brand-dark/50 group-hover:text-brand-primary" />
                             My Profile
                         </Link>
                         <Link
                             to="/my-posts"
-                            className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-lg transition-colors group"
+                            className="flex items-center gap-2.5 px-3 py-2 text-sm text-brand-dark hover:bg-brand-bg/50 hover:text-brand-primary rounded-lg transition-colors group"
                             onClick={() => setIsOpen(false)}
                         >
-                            <FileText className="w-4 h-4 text-gray-400 group-hover:text-indigo-500" />
+                            <FileText className="w-4 h-4 text-brand-dark/50 group-hover:text-brand-primary" />
                             My Posts
                         </Link>
                     </div>
