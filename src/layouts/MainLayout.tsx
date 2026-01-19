@@ -45,17 +45,17 @@ export default function MainLayout() {
                         {user ? (
                             <UserProfileMenu user={user} onLogout={handleLogout} />
                         ) : (
-                            <>
-                                <Link to="/login" className="text-sm font-medium text-brand-dark hover:text-brand-primary px-2 transition-colors">
+                            <div className="flex items-center gap-3">
+                                <Link to="/login" className="text-sm font-medium text-brand-dark px-4 py-2 rounded-lg hover:bg-brand-bg/50 hover:text-brand-primary transition-all">
                                     Login
                                 </Link>
                                 <Link
                                     to="/register"
-                                    className="bg-brand-primary hover:bg-brand-dark text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg"
+                                    className="bg-brand-primary text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-brand-dark transition-all shadow-md hover:shadow-lg transform active:scale-95"
                                 >
                                     Register
                                 </Link>
-                            </>
+                            </div>
                         )}
                     </nav>
                 </div>

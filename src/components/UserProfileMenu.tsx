@@ -44,11 +44,11 @@ export default function UserProfileMenu({ user, onLogout }: UserProfileMenuProps
                 aria-haspopup="true"
             >
                 {/* Avatar */}
-                <div className="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold border border-indigo-200 overflow-hidden shrink-0">
+                <div className="h-9 w-9 rounded-full bg-brand-bg flex items-center justify-center text-brand-primary font-bold border-2 border-brand-secondary/30 overflow-hidden shrink-0 shadow-sm group-hover:border-brand-primary/50 transition-colors">
                     {avatarUrl ? (
                         <img src={avatarUrl} alt={displayName} className="h-full w-full object-cover" />
                     ) : (
-                        <span className="text-xs sm:text-sm">{initial}</span>
+                        <span className="text-sm">{initial}</span>
                     )}
                 </div>
 

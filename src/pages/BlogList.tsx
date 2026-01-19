@@ -28,9 +28,9 @@ export default function BlogList() {
                     {currentUser && (
                         <Link
                             to="/create-blog"
-                            className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand-primary text-white text-sm font-medium rounded-lg hover:bg-brand-dark transition-all shadow-md hover:shadow-lg"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-brand-primary text-white text-base font-semibold rounded-full hover:bg-brand-dark transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
                         >
-                            <PenTool className="w-4 h-4" />
+                            <PenTool className="w-5 h-5" />
                             Write Story
                         </Link>
                     )}
