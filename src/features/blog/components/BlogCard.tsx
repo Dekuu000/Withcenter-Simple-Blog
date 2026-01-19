@@ -39,7 +39,7 @@ export default function BlogCard({ blog, currentUser, linkState }: BlogCardProps
                     <div className="flex items-center gap-1.5">
                         <User className="w-3.5 h-3.5" />
                         <span className="font-medium">
-                            {isAuthor ? 'Written by You' : `Author ID: ${blog.author_id.slice(0, 8)}...`}
+                            {isAuthor ? 'Written by You' : (blog.profiles?.full_name || blog.profiles?.email || 'Unknown Author')}
                         </span>
                     </div>
                     <div className="flex items-center gap-1.5">
