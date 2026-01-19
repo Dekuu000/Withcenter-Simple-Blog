@@ -17,9 +17,9 @@ export default function BlogCard({ blog, currentUser, linkState }: BlogCardProps
         <Link
             to={`/blog/${blog.id}`}
             state={linkState}
-            className={`block bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-brand-secondary transition-all duration-300 overflow-hidden group border ${isAuthor ? 'border-brand-primary/30 ring-1 ring-brand-primary/20' : 'border-brand-secondary/20 hover:bg-brand-bg/30'}`}
+            className={`flex flex-col h-full bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-brand-secondary transition-all duration-300 overflow-hidden group border ${isAuthor ? 'border-brand-primary/30 ring-1 ring-brand-primary/20' : 'border-brand-secondary/20 hover:bg-brand-bg/30'}`}
         >
-            <div className="p-6">
+            <div className="p-6 flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-2 gap-4">
                     <h2 className="text-lg md:text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors line-clamp-2">
                         {blog.title}
