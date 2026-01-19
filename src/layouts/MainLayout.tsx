@@ -39,9 +39,9 @@ export default function MainLayout() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col">
+        <div className="min-h-screen bg-slate-50 text-gray-900 font-sans flex flex-col">
             <header className="bg-white shadow-sm sticky top-0 z-10 shrink-0">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+                <div className="max-w-6xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between gap-2">
                     <Link to="/" className="text-xl font-bold text-indigo-600 shrink-0">
                         BlogApp
                     </Link>
@@ -67,7 +67,7 @@ export default function MainLayout() {
                 </div>
             </header >
 
-            <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full flex flex-col">
+            <main className="max-w-6xl mx-auto px-4 lg:px-6 py-8 flex-grow w-full flex flex-col">
                 <Outlet />
             </main>
         </div >
