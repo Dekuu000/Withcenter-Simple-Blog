@@ -67,8 +67,10 @@ export default function MainLayout() {
                 </div>
             </header >
 
-            <main className="max-w-6xl mx-auto px-4 lg:px-6 py-8 flex-grow w-full flex flex-col">
-                <Outlet />
+            <main className="flex-grow w-full py-8">
+                <div className="max-w-6xl mx-auto px-4 lg:px-6 w-full flex flex-col h-full">
+                    <Outlet />
+                </div>
             </main>
         </div >
     );
