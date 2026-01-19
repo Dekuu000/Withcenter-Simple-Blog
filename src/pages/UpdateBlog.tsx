@@ -96,18 +96,18 @@ export default function UpdateBlog() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50/50 py-10 px-4 sm:px-6 animate-fade-in">
+        <div className="min-h-screen bg-brand-bg/30 py-10 px-4 sm:px-6 animate-fade-in">
             <div className="max-w-5xl mx-auto">
                 <div className="mb-8 text-center max-w-2xl mx-auto">
-                    <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Edit Story</h1>
-                    <p className="text-gray-500 mt-2">Refine your masterpiece.</p>
+                    <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Edit Story</h1>
+                    <p className="text-brand-dark/60 mt-2">Refine your masterpiece.</p>
                 </div>
 
-                <div className="bg-white shadow-xl shadow-gray-100/50 rounded-2xl border border-gray-100 overflow-hidden max-w-5xl mx-auto">
+                <div className="bg-white shadow-xl shadow-brand-secondary/5 rounded-2xl border border-brand-secondary/20 overflow-hidden max-w-5xl mx-auto">
                     <form onSubmit={handleSubmit} className="p-6 sm:p-10 space-y-8">
                         {/* Title Section */}
                         <div className="space-y-2">
-                            <label htmlFor="title" className="block text-sm font-semibold text-gray-900">
+                            <label htmlFor="title" className="block text-sm font-semibold text-brand-dark">
                                 Title
                             </label>
                             <input
@@ -115,7 +115,7 @@ export default function UpdateBlog() {
                                 id="title"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                className="w-full text-lg font-medium text-gray-900 placeholder-gray-400 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 py-2.5 px-4 transition-all shadow-sm"
+                                className="w-full text-lg font-medium text-brand-dark placeholder-gray-400 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary py-2.5 px-4 transition-all shadow-sm"
                                 placeholder="Enter title"
                                 required
                                 maxLength={100}
@@ -124,16 +124,16 @@ export default function UpdateBlog() {
 
                         {/* Content Section */}
                         <div className="space-y-2 flex flex-col flex-grow">
-                            <label htmlFor="content" className="block text-sm font-semibold text-gray-900">
+                            <label htmlFor="content" className="block text-sm font-semibold text-brand-dark">
                                 Content
                             </label>
-                            <div className="border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-indigo-500/20 focus-within:border-indigo-500 transition-all bg-white shadow-sm flex flex-col">
+                            <div className="border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-brand-primary/20 focus-within:border-brand-primary transition-all bg-white shadow-sm flex flex-col">
                                 {/* Mock Toolbar */}
                                 <div className="bg-gray-50/80 border-b border-gray-100 px-4 py-2.5 flex items-center gap-2 text-gray-600 text-sm select-none sticky top-0 z-10 backdrop-blur-sm">
-                                    <span className="hover:text-indigo-600 cursor-pointer p-1.5 rounded-md hover:bg-gray-200/50 transition-colors" title="Bold"><strong>B</strong></span>
-                                    <span className="hover:text-indigo-600 cursor-pointer p-1.5 rounded-md hover:bg-gray-200/50 transition-colors italic" title="Italic"><em>I</em></span>
+                                    <span className="hover:text-brand-primary cursor-pointer p-1.5 rounded-md hover:bg-brand-bg/50 transition-colors" title="Bold"><strong>B</strong></span>
+                                    <span className="hover:text-brand-primary cursor-pointer p-1.5 rounded-md hover:bg-brand-bg/50 transition-colors italic" title="Italic"><em>I</em></span>
                                     <div className="w-px h-4 bg-gray-300 mx-2"></div>
-                                    <span className="hover:text-indigo-600 cursor-pointer p-1.5 rounded-md hover:bg-gray-200/50 transition-colors underline" title="Link">Link</span>
+                                    <span className="hover:text-brand-primary cursor-pointer p-1.5 rounded-md hover:bg-brand-bg/50 transition-colors underline" title="Link">Link</span>
                                 </div>
 
                                 <textarea
@@ -141,7 +141,7 @@ export default function UpdateBlog() {
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
                                     rows={18}
-                                    className="w-full text-lg leading-relaxed text-gray-800 placeholder-gray-400 border-none focus:ring-0 focus:outline-none p-6 resize-y bg-transparent"
+                                    className="w-full text-lg leading-relaxed text-brand-dark placeholder-gray-400 border-none focus:ring-0 focus:outline-none p-6 resize-y bg-transparent font-sans"
                                     placeholder="Tell your story..."
                                     required
                                 />
@@ -157,14 +157,14 @@ export default function UpdateBlog() {
                                 <button
                                     type="button"
                                     onClick={() => navigate(-1)}
-                                    className="px-6 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-100 transition-all"
+                                    className="px-6 py-2.5 text-sm font-medium text-brand-dark/70 bg-white border border-gray-200 rounded-xl hover:bg-brand-bg/30 hover:text-brand-dark hover:border-brand-secondary/30 focus:outline-none focus:ring-2 focus:ring-brand-secondary/20 transition-all cursor-pointer"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting || !title || !content}
-                                    className="flex items-center gap-2 bg-indigo-600 text-white px-8 py-2.5 rounded-xl hover:bg-indigo-700 transition-all disabled:opacity-50 disabled:shadow-none font-semibold text-sm shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/30 active:scale-95"
+                                    className="flex items-center gap-2 bg-brand-primary text-white px-8 py-2.5 rounded-xl hover:bg-brand-dark transition-all disabled:opacity-50 disabled:shadow-none font-semibold text-sm shadow-lg shadow-brand-primary/20 hover:shadow-brand-primary/30 active:scale-95 cursor-pointer"
                                 >
                                     {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
                                     {isSubmitting ? 'Saving...' : 'Save Changes'}

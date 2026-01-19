@@ -20,7 +20,7 @@ export default function MyPostsPage() {
     if (loading && blogs.length === 0) {
         return (
             <div className="flex justify-center items-center py-20 min-h-[50vh]">
-                <Loader2 className="w-10 h-10 animate-spin text-indigo-600" />
+                <Loader2 className="w-10 h-10 animate-spin text-brand-primary" />
             </div>
         );
     }
@@ -31,7 +31,7 @@ export default function MyPostsPage() {
                 <p>{error}</p>
                 <button
                     onClick={() => user && dispatch(fetchBlogsByAuthor(user.id))}
-                    className="mt-4 text-indigo-600 hover:underline"
+                    className="mt-4 text-brand-primary hover:underline hover:text-brand-dark"
                 >
                     Try again
                 </button>
@@ -42,12 +42,12 @@ export default function MyPostsPage() {
     const postCount = blogs.length;
 
     return (
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
-            <header className="mb-10 flex items-center justify-between border-b border-gray-100 pb-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 animate-fade-in">
+            <header className="mb-10 flex items-center justify-between border-b border-brand-secondary/20 pb-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Your Posts</h1>
-                    <p className="text-gray-500 mt-2 text-sm">
-                        You have published <span className="font-medium text-indigo-600">{postCount}</span> {postCount === 1 ? 'story' : 'stories'} so far.
+                    <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Your Posts</h1>
+                    <p className="text-brand-dark/60 mt-2 text-sm">
+                        You have published <span className="font-medium text-brand-primary">{postCount}</span> {postCount === 1 ? 'story' : 'stories'} so far.
                     </p>
                 </div>
 
@@ -55,7 +55,7 @@ export default function MyPostsPage() {
                     blogs.length > 0 && (
                         <Link
                             to="/create-blog"
-                            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
+                            className="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-full hover:bg-brand-dark transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
                         >
                             <PenTool className="w-4 h-4" />
                             Write New
@@ -66,17 +66,17 @@ export default function MyPostsPage() {
 
             {
                 blogs.length === 0 ? (
-                    <div className="text-center py-20 bg-gray-50/50 rounded-2xl border-2 border-dashed border-gray-200">
-                        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
+                    <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-brand-secondary/30 shadow-sm">
+                        <div className="w-16 h-16 bg-brand-bg rounded-full flex items-center justify-center mx-auto mb-4 text-brand-primary">
                             <PenTool className="w-8 h-8" />
                         </div>
-                        <h2 className="text-xl font-semibold text-gray-900 mb-2">No posts yet</h2>
-                        <p className="text-gray-500 max-w-sm mx-auto mb-8">
+                        <h2 className="text-xl font-semibold text-brand-dark mb-2">No posts yet</h2>
+                        <p className="text-brand-dark/60 max-w-sm mx-auto mb-8">
                             You haven't written any posts yet. Share your thoughts with the world and start your first story today.
                         </p>
                         <Link
                             to="/create-blog"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm hover:shadow-md"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-brand-primary text-white font-semibold rounded-full hover:bg-brand-dark transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
                         >
                             Draft your first story
                         </Link>

@@ -86,15 +86,15 @@ export default function ViewBlog() {
     const isAuthor = user?.id === currentBlog.author_id;
 
     return (
-        <div className="min-h-screen bg-gray-50/30 py-12 px-4 sm:px-6 lg:px-8 animate-fade-in text-gray-800">
+        <div className="min-h-screen bg-brand-bg/30 py-12 px-4 sm:px-6 lg:px-8 animate-fade-in text-brand-dark">
             <article className="max-w-3xl mx-auto">
                 {/* Navigation */}
                 <nav className="mb-8 flex items-center justify-between">
                     <Link
                         to={backLink}
-                        className="group inline-flex items-center text-sm font-medium text-gray-500 hover:text-indigo-600 transition-colors"
+                        className="group inline-flex items-center text-sm font-medium text-brand-dark/60 hover:text-brand-primary transition-colors"
                     >
-                        <div className="mr-2 p-1.5 bg-white border border-gray-200 rounded-full group-hover:border-indigo-200 group-hover:bg-indigo-50 transition-all">
+                        <div className="mr-2 p-1.5 bg-white border border-brand-secondary/20 rounded-full group-hover:border-brand-primary/30 group-hover:bg-brand-bg transition-all">
                             <ArrowLeft className="w-4 h-4" />
                         </div>
                         {backLabel}
@@ -104,14 +104,14 @@ export default function ViewBlog() {
                         <div className="flex items-center gap-2">
                             <Link
                                 to={`/blog/edit/${currentBlog.id}`}
-                                className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                                className="p-2 text-brand-dark/40 hover:text-brand-primary hover:bg-brand-bg rounded-lg transition-all"
                                 title="Edit Post"
                             >
                                 <Edit2 className="w-5 h-5" />
                             </Link>
                             <button
                                 onClick={handleDeleteClick}
-                                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                                className="p-2 text-brand-dark/40 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all cursor-pointer"
                                 title="Delete Post"
                             >
                                 <Trash2 className="w-5 h-5" />
@@ -122,8 +122,8 @@ export default function ViewBlog() {
 
                 {/* Article Header */}
                 <header className="mb-10 text-center md:text-left">
-                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-sm text-gray-500 mb-6 font-medium">
-                        <span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full">Article</span>
+                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-sm text-brand-dark/60 mb-6 font-medium">
+                        <span className="bg-brand-bg text-brand-primary px-3 py-1 rounded-full border border-brand-secondary/20">Article</span>
                         <span>•</span>
                         <div className="flex items-center gap-1.5">
                             <Calendar className="w-4 h-4" />
@@ -136,14 +136,14 @@ export default function ViewBlog() {
                         </span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-6 leading-[1.15]">
+                    <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-brand-dark mb-6 leading-[1.15]">
                         {currentBlog.title}
                     </h1>
                 </header>
 
                 {/* Main Content */}
-                <div className="bg-white shadow-xl shadow-gray-100/50 ring-1 ring-gray-100 rounded-2xl p-8 md:p-12 mb-12">
-                    <div className="prose prose-lg prose-indigo max-w-none text-gray-700 leading-relaxed font-serif">
+                <div className="bg-white shadow-xl shadow-brand-secondary/5 ring-1 ring-brand-secondary/10 rounded-2xl p-8 md:p-12 mb-12">
+                    <div className="prose prose-lg prose-indigo max-w-none text-brand-dark/80 leading-relaxed font-sans">
                         {currentBlog.content.split('\n').map((paragraph, index) => (
                             paragraph.trim() ? (
                                 <p key={index} className="mb-6 last:mb-0">
@@ -155,23 +155,23 @@ export default function ViewBlog() {
                 </div>
 
                 {/* Footer / Author Section */}
-                <div className="border-t border-gray-100 pt-10 mt-10">
+                <div className="border-t border-brand-secondary/20 pt-10 mt-10">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 overflow-hidden ring-2 ring-white shadow-sm">
+                            <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 overflow-hidden ring-2 ring-white shadow-sm">
                                 {currentBlog.profiles?.avatar_url ? (
                                     <img src={currentBlog.profiles.avatar_url} alt="Author" className="w-full h-full object-cover" />
                                 ) : (
-                                    <div className="w-full h-full bg-indigo-50 flex items-center justify-center text-indigo-500 font-bold text-lg">
+                                    <div className="w-full h-full bg-brand-bg flex items-center justify-center text-brand-primary font-bold text-lg border border-brand-secondary/20">
                                         {(currentBlog.profiles?.full_name || currentBlog.profiles?.email || '?').charAt(0).toUpperCase()}
                                     </div>
                                 )}
                             </div>
                             <div>
-                                <h3 className="text-sm font-bold text-gray-900">
+                                <h3 className="text-sm font-bold text-brand-dark">
                                     Written by {currentBlog.profiles?.full_name || currentBlog.profiles?.email?.split('@')[0] || 'Unknown'}
                                 </h3>
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm text-brand-dark/50">
                                     {currentBlog.profiles?.email || 'Author'}
                                 </p>
                             </div>
