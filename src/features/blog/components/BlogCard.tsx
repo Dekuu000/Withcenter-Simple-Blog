@@ -17,25 +17,25 @@ export default function BlogCard({ blog, currentUser, linkState }: BlogCardProps
         <Link
             to={`/blog/${blog.id}`}
             state={linkState}
-            className={`block bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-indigo-300 hover:ring-2 hover:ring-indigo-100 transition-all duration-300 overflow-hidden group border ${isAuthor ? 'border-indigo-200 ring-1 ring-indigo-50' : 'border-gray-100'}`}
+            className={`block bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-brand-secondary transition-all duration-300 overflow-hidden group border ${isAuthor ? 'border-brand-primary/30 ring-1 ring-brand-primary/20' : 'border-brand-secondary/20 hover:bg-brand-bg/30'}`}
         >
             <div className="p-6">
                 <div className="flex justify-between items-start mb-2 gap-4">
-                    <h2 className="text-lg md:text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                    <h2 className="text-lg md:text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors line-clamp-2">
                         {blog.title}
                     </h2>
                     {isAuthor && (
-                        <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800">
+                        <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-bg text-brand-primary border border-brand-secondary/30">
                             You
                         </span>
                     )}
                 </div>
 
-                <p className="text-gray-600 mb-4 line-clamp-3 text-sm md:text-base leading-relaxed">
+                <p className="text-brand-dark/70 mb-4 line-clamp-3 text-sm md:text-base leading-relaxed">
                     {blog.content}
                 </p>
 
-                <div className="flex items-center text-xs text-gray-500 gap-4 mt-auto pt-4 border-t border-gray-50">
+                <div className="flex items-center text-xs text-brand-dark/50 gap-4 mt-auto pt-4 border-t border-brand-secondary/20">
                     <div className="flex items-center gap-1.5">
                         <User className="w-3.5 h-3.5" />
                         <span className="font-medium">

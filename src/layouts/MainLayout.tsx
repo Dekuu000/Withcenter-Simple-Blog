@@ -19,11 +19,6 @@ export default function MainLayout() {
             if (session) {
                 dispatch(setSession(session));
             } else {
-                // We don't dispatch setSession(null) here because checkSession or logout handles it, 
-                // and we want to avoid overwriting state during the initial check race condition.
-                // However, for 'SIGNED_OUT' event specifically, we might want to.
-                // For simplicity, let's rely on checkSession for init, and this for updates.
-                // Actually, the most robust way is to dispatch setSession always when it changes.
                 dispatch(setSession(session));
             }
         });
@@ -39,25 +34,24 @@ export default function MainLayout() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 text-gray-900 font-sans flex flex-col">
-            <header className="bg-white shadow-sm sticky top-0 z-10 shrink-0">
-                <div className="max-w-6xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between gap-2">
-                    <Link to="/" className="text-xl font-bold text-indigo-600 shrink-0">
+        <div className="min-h-screen bg-brand-bg text-brand-dark font-sans flex flex-col">
+            <header className="bg-white/90 backdrop-blur-sm shadow-sm border-b border-brand-secondary/30 sticky top-0 z-20 shrink-0">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+                    <Link to="/" className="text-2xl font-bold text-brand-primary tracking-tight hover:text-brand-dark transition-colors shrink-0">
                         BlogApp
                     </Link>
-                    <nav className="flex items-center gap-2 sm:gap-4">
+
+                    <nav className="flex items-center gap-3 sm:gap-6">
                         {user ? (
-                            <>
-                                <UserProfileMenu user={user} onLogout={handleLogout} />
-                            </>
+                            <UserProfileMenu user={user} onLogout={handleLogout} />
                         ) : (
                             <>
-                                <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-indigo-600 px-2 py-1">
+                                <Link to="/login" className="text-sm font-medium text-brand-dark hover:text-brand-primary px-2 transition-colors">
                                     Login
                                 </Link>
                                 <Link
                                     to="/register"
-                                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-md text-sm font-medium transition-colors"
+                                    className="bg-brand-primary hover:bg-brand-dark text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg"
                                 >
                                     Register
                                 </Link>
@@ -65,13 +59,13 @@ export default function MainLayout() {
                         )}
                     </nav>
                 </div>
-            </header >
+            </header>
 
-            <main className="flex-grow w-full py-8">
-                <div className="max-w-6xl mx-auto px-4 lg:px-6 w-full flex flex-col h-full">
+            <main className="flex-grow w-full py-10 md:py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col h-full">
                     <Outlet />
                 </div>
             </main>
-        </div >
+        </div>
     );
 }
