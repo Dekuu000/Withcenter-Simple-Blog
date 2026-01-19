@@ -41,23 +41,23 @@ export default function MainLayout() {
     return (
         <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col">
             <header className="bg-white shadow-sm sticky top-0 z-10 shrink-0">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                    <Link to="/" className="text-xl font-bold text-indigo-600">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+                    <Link to="/" className="text-xl font-bold text-indigo-600 shrink-0">
                         BlogApp
                     </Link>
-                    <nav className="flex items-center gap-4">
+                    <nav className="flex items-center gap-2 sm:gap-4">
                         {user ? (
                             <>
                                 <UserProfileMenu user={user} onLogout={handleLogout} />
                             </>
                         ) : (
                             <>
-                                <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-indigo-600">
+                                <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-indigo-600 px-2 py-1">
                                     Login
                                 </Link>
                                 <Link
                                     to="/register"
-                                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-md text-sm font-medium transition-colors"
                                 >
                                     Register
                                 </Link>
@@ -67,7 +67,7 @@ export default function MainLayout() {
                 </div>
             </header >
 
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full flex flex-col">
+            <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full flex flex-col">
                 <Outlet />
             </main>
         </div >

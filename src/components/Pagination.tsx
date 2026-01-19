@@ -11,7 +11,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange, isLo
     if (totalPages <= 1) return null;
 
     return (
-        <div className="mt-8 pt-6 border-t border-gray-100 flex justify-center items-center gap-6">
+        <div className="mt-8 pt-6 border-t border-gray-100 flex justify-center items-center gap-3 sm:gap-6">
             <button
                 onClick={() => onPageChange(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1 || isLoading}

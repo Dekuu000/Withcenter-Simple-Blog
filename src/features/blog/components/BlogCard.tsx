@@ -21,7 +21,7 @@ export default function BlogCard({ blog, currentUser, linkState }: BlogCardProps
         >
             <div className="p-6">
                 <div className="flex justify-between items-start mb-2 gap-4">
-                    <h2 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                    <h2 className="text-lg md:text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
                         {blog.title}
                     </h2>
                     {isAuthor && (
@@ -31,7 +31,7 @@ export default function BlogCard({ blog, currentUser, linkState }: BlogCardProps
                     )}
                 </div>
 
-                <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">
+                <p className="text-gray-600 mb-4 line-clamp-3 text-sm md:text-base leading-relaxed">
                     {blog.content}
                 </p>
 
