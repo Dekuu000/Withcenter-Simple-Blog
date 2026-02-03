@@ -15,14 +15,18 @@ export default function BlogList() {
 
     useEffect(() => {
         dispatch(fetchBlogs({ page, limit }));
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Scroll to the blog list container instead of top of page
+        const blogContainer = document.getElementById('blog-list-container');
+        if (blogContainer && page > 1) {
+            blogContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }, [dispatch, page]);
 
     const totalPages = Math.ceil(totalCount / limit);
 
     return (
         <div className="flex flex-col flex-grow animate-fade-in">
-            <div className="flex-grow">
+            <div className="flex-grow" id="blog-list-container">
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-10 gap-3 sm:gap-4 text-center sm:text-left">
                     <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-dark tracking-tight">Latest Posts</h1>
                     {currentUser && (
