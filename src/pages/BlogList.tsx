@@ -28,7 +28,9 @@ export default function BlogList() {
         <div className="flex flex-col flex-grow animate-fade-in">
             <div className="flex-grow" id="blog-list-container">
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-10 gap-3 sm:gap-4 text-center sm:text-left">
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-dark tracking-tight">Latest Posts</h1>
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-dark tracking-tight">
+                        Latest Posts
+                    </h1>
                     {currentUser && (
                         <Link
                             to="/create-blog"

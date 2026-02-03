@@ -75,7 +75,11 @@ export default function CommentForm({ onSubmit, disabled = false, user }: Commen
             <div className="flex-shrink-0">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 overflow-hidden ring-1 ring-gray-100">
                     {avatarUrl ? (
-                        <img src={avatarUrl} alt={userName} className="w-full h-full object-cover" />
+                        <img
+                            src={avatarUrl}
+                            alt={userName}
+                            className="w-full h-full object-cover"
+                        />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-500 font-bold text-xs sm:text-sm bg-gray-100">
                             {userName.charAt(0).toUpperCase()}
@@ -86,7 +90,9 @@ export default function CommentForm({ onSubmit, disabled = false, user }: Commen
 
             {/* Input Container */}
             <div className="flex-grow">
-                <div className={`relative bg-gray-100 rounded-3xl overflow-hidden transition-all ${isSubmitting ? 'opacity-70' : ''}`}>
+                <div
+                    className={`relative bg-gray-100 rounded-3xl overflow-hidden transition-all ${isSubmitting ? 'opacity-70' : ''}`}
+                >
                     <textarea
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
@@ -155,13 +161,18 @@ export default function CommentForm({ onSubmit, disabled = false, user }: Commen
                             type="button"
                             onClick={(e) => handleSubmit(e)}
                             disabled={(!content.trim() && !imageFile) || disabled || isSubmitting}
-                            className={`p-2 rounded-full transition-all min-w-[36px] min-h-[36px] sm:min-w-[40px] sm:min-h-[40px] flex items-center justify-center ${(!content.trim() && !imageFile) || disabled || isSubmitting
-                                ? 'text-gray-300 cursor-not-allowed'
-                                : 'text-brand-primary hover:bg-brand-bg cursor-pointer'
-                                }`}
+                            className={`p-2 rounded-full transition-all min-w-[36px] min-h-[36px] sm:min-w-[40px] sm:min-h-[40px] flex items-center justify-center ${
+                                (!content.trim() && !imageFile) || disabled || isSubmitting
+                                    ? 'text-gray-300 cursor-not-allowed'
+                                    : 'text-brand-primary hover:bg-brand-bg cursor-pointer'
+                            }`}
                             aria-label="Send comment"
                         >
-                            {isSubmitting ? <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" /> : <Send className="w-4 h-4 sm:w-5 sm:h-5" />}
+                            {isSubmitting ? (
+                                <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+                            ) : (
+                                <Send className="w-4 h-4 sm:w-5 sm:h-5" />
+                            )}
                         </button>
                     </div>
                 </div>

@@ -137,7 +137,9 @@ export default function ViewBlog() {
                 {/* Article Header */}
                 <header className="mb-8 sm:mb-10 text-center md:text-left">
                     <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3 text-xs sm:text-sm text-brand-dark/60 mb-4 sm:mb-6 font-medium">
-                        <span className="bg-brand-bg text-brand-primary px-3 py-1 rounded-full border border-brand-secondary/20">Article</span>
+                        <span className="bg-brand-bg text-brand-primary px-3 py-1 rounded-full border border-brand-secondary/20">
+                            Article
+                        </span>
                         <span>•</span>
                         <div className="flex items-center gap-1.5">
                             <Calendar className="w-4 h-4" />
@@ -146,7 +148,9 @@ export default function ViewBlog() {
                         <span>•</span>
                         <span className="flex items-center gap-1.5">
                             <User className="w-4 h-4" />
-                            {currentBlog.profiles?.full_name || currentBlog.profiles?.email || 'Unknown Author'}
+                            {currentBlog.profiles?.full_name ||
+                                currentBlog.profiles?.email ||
+                                'Unknown Author'}
                         </span>
                     </div>
 
@@ -170,13 +174,13 @@ export default function ViewBlog() {
                 <div className="bg-white shadow-xl shadow-brand-secondary/5 ring-1 ring-brand-secondary/10 rounded-xl sm:rounded-2xl overflow-hidden mb-8 sm:mb-12">
                     <div className="p-6 sm:p-8 md:p-12">
                         <div className="prose prose-sm sm:prose-base lg:prose-lg prose-indigo max-w-none text-brand-dark/80 leading-relaxed font-sans">
-                            {currentBlog.content.split('\n').map((paragraph, index) => (
+                            {currentBlog.content.split('\n').map((paragraph, index) =>
                                 paragraph.trim() ? (
                                     <p key={index} className="mb-4 sm:mb-6 last:mb-0">
                                         {paragraph}
                                     </p>
                                 ) : null
-                            ))}
+                            )}
                         </div>
                     </div>
 
@@ -193,16 +197,29 @@ export default function ViewBlog() {
                         <div className="flex items-center gap-3 sm:gap-4">
                             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 overflow-hidden ring-2 ring-white shadow-sm shrink-0">
                                 {currentBlog.profiles?.avatar_url ? (
-                                    <img src={currentBlog.profiles.avatar_url} alt="Author" className="w-full h-full object-cover" />
+                                    <img
+                                        src={currentBlog.profiles.avatar_url}
+                                        alt="Author"
+                                        className="w-full h-full object-cover"
+                                    />
                                 ) : (
                                     <div className="w-full h-full bg-brand-bg flex items-center justify-center text-brand-primary font-bold text-base sm:text-lg border border-brand-secondary/20">
-                                        {(currentBlog.profiles?.full_name || currentBlog.profiles?.email || '?').charAt(0).toUpperCase()}
+                                        {(
+                                            currentBlog.profiles?.full_name ||
+                                            currentBlog.profiles?.email ||
+                                            '?'
+                                        )
+                                            .charAt(0)
+                                            .toUpperCase()}
                                     </div>
                                 )}
                             </div>
                             <div>
                                 <h3 className="text-xs sm:text-sm font-bold text-brand-dark">
-                                    Written by {currentBlog.profiles?.full_name || currentBlog.profiles?.email?.split('@')[0] || 'Unknown'}
+                                    Written by{' '}
+                                    {currentBlog.profiles?.full_name ||
+                                        currentBlog.profiles?.email?.split('@')[0] ||
+                                        'Unknown'}
                                 </h3>
                                 <p className="text-xs sm:text-sm text-brand-dark/50 truncate">
                                     {currentBlog.profiles?.email || 'Author'}
@@ -211,7 +228,6 @@ export default function ViewBlog() {
                         </div>
                     </div>
                 </div>
-
             </article>
 
             {/* Comment Modal */}

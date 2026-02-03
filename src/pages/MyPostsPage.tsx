@@ -56,9 +56,13 @@ export default function MyPostsPage() {
 
             <header className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-brand-secondary/20 pb-6 gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Your Posts</h1>
+                    <h1 className="text-3xl font-bold text-brand-dark tracking-tight">
+                        Your Posts
+                    </h1>
                     <p className="text-brand-dark/60 mt-2 text-sm">
-                        You have published <span className="font-medium text-brand-primary">{postCount}</span> {postCount === 1 ? 'story' : 'stories'} so far.
+                        You have published{' '}
+                        <span className="font-medium text-brand-primary">{postCount}</span>{' '}
+                        {postCount === 1 ? 'story' : 'stories'} so far.
                     </p>
                 </div>
 
@@ -71,38 +75,37 @@ export default function MyPostsPage() {
                         <span>Write Story</span>
                     </Link>
                 )}
-            </header >
+            </header>
 
-            {
-                blogs.length === 0 ? (
-                    <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-brand-secondary/30 shadow-sm">
-                        <div className="w-16 h-16 bg-brand-bg rounded-full flex items-center justify-center mx-auto mb-4 text-brand-primary">
-                            <PenTool className="w-8 h-8" />
-                        </div>
-                        <h2 className="text-xl font-semibold text-brand-dark mb-2">No posts yet</h2>
-                        <p className="text-brand-dark/60 max-w-sm mx-auto mb-8">
-                            You haven't written any posts yet. Share your thoughts with the world and start your first story today.
-                        </p>
-                        <Link
-                            to="/create-blog"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-brand-primary text-white font-semibold rounded-full hover:bg-brand-dark transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
-                        >
-                            Draft your first story
-                        </Link>
+            {blogs.length === 0 ? (
+                <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-brand-secondary/30 shadow-sm">
+                    <div className="w-16 h-16 bg-brand-bg rounded-full flex items-center justify-center mx-auto mb-4 text-brand-primary">
+                        <PenTool className="w-8 h-8" />
                     </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {blogs.map((blog) => (
-                            <BlogCard
-                                key={blog.id}
-                                blog={blog}
-                                currentUser={user}
-                                linkState={{ from: '/my-posts', label: 'Back to my posts' }}
-                            />
-                        ))}
-                    </div>
-                )
-            }
-        </div >
+                    <h2 className="text-xl font-semibold text-brand-dark mb-2">No posts yet</h2>
+                    <p className="text-brand-dark/60 max-w-sm mx-auto mb-8">
+                        You haven't written any posts yet. Share your thoughts with the world and
+                        start your first story today.
+                    </p>
+                    <Link
+                        to="/create-blog"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-brand-primary text-white font-semibold rounded-full hover:bg-brand-dark transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                    >
+                        Draft your first story
+                    </Link>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {blogs.map((blog) => (
+                        <BlogCard
+                            key={blog.id}
+                            blog={blog}
+                            currentUser={user}
+                            linkState={{ from: '/my-posts', label: 'Back to my posts' }}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
     );
 }

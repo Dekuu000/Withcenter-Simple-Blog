@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MessageCircle, Loader2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { fetchComments, createComment, deleteComment, clearComments } from '../features/comment/commentSlice';
+import { fetchComments, createComment, deleteComment } from '../features/comment/commentSlice';
 import { storageApi } from '../services/api';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
@@ -12,7 +12,11 @@ interface CommentSectionProps {
     onlyForm?: boolean; // Only show the form, hide comments
 }
 
-export default function CommentSection({ blogId, hideForm = false, onlyForm = false }: CommentSectionProps) {
+export default function CommentSection({
+    blogId,
+    hideForm = false,
+    onlyForm = false,
+}: CommentSectionProps) {
     const dispatch = useAppDispatch();
     const { comments, loading } = useAppSelector((state) => state.comment);
     const { user } = useAppSelector((state) => state.auth);
@@ -20,9 +24,6 @@ export default function CommentSection({ blogId, hideForm = false, onlyForm = fa
 
     useEffect(() => {
         dispatch(fetchComments(blogId));
-        return () => {
-            dispatch(clearComments());
-        };
     }, [dispatch, blogId]);
 
     const handleSubmitComment = async (content: string, imageFile: File | null) => {
@@ -37,10 +38,21 @@ export default function CommentSection({ blogId, hideForm = false, onlyForm = fa
                     console.error('Image upload failed:', uploadError);
                     // Show a more helpful error message
                     const errorMessage = uploadError?.message || 'Unknown error';
-                    if (errorMessage.includes('Bucket not found') || errorMessage.includes('not found')) {
-                        alert('Image upload failed: The storage bucket "comment-images" has not been created in Supabase. Please create it in your Supabase Storage dashboard.');
-                    } else if (errorMessage.includes('security') || errorMessage.includes('policy') || errorMessage.includes('permission')) {
-                        alert('Image upload failed: Storage permissions not configured. Please check your Supabase Storage bucket policies.');
+                    if (
+                        errorMessage.includes('Bucket not found') ||
+                        errorMessage.includes('not found')
+                    ) {
+                        alert(
+                            'Image upload failed: The storage bucket "comment-images" has not been created in Supabase. Please create it in your Supabase Storage dashboard.'
+                        );
+                    } else if (
+                        errorMessage.includes('security') ||
+                        errorMessage.includes('policy') ||
+                        errorMessage.includes('permission')
+                    ) {
+                        alert(
+                            'Image upload failed: Storage permissions not configured. Please check your Supabase Storage bucket policies.'
+                        );
                     } else {
                         alert(`Image upload failed: ${errorMessage}`);
                     }
@@ -48,12 +60,14 @@ export default function CommentSection({ blogId, hideForm = false, onlyForm = fa
                 }
             }
 
-            await dispatch(createComment({
-                content,
-                image_url,
-                blog_id: blogId,
-                author_id: user.id,
-            })).unwrap();
+            await dispatch(
+                createComment({
+                    content,
+                    image_url,
+                    blog_id: blogId,
+                    author_id: user.id,
+                })
+            ).unwrap();
         } catch (error: any) {
             console.error('Failed to create comment:', error);
             alert('Failed to post comment. Please try again.');
@@ -61,7 +75,7 @@ export default function CommentSection({ blogId, hideForm = false, onlyForm = fa
     };
 
     const handleDeleteComment = async (id: string) => {
-        const comment = comments.find(c => c.id === id);
+        const comment = comments.find((c) => c.id === id);
         setDeletingId(id);
 
         try {
@@ -89,7 +103,14 @@ export default function CommentSection({ blogId, hideForm = false, onlyForm = fa
                 ) : (
                     <div className="p-4 bg-gray-50 rounded-xl text-center">
                         <p className="text-sm text-gray-500">
-                            Please <a href="/login" className="text-brand-primary font-medium hover:underline">sign in</a> to leave a comment.
+                            Please{' '}
+                            <a
+                                href="/login"
+                                className="text-brand-primary font-medium hover:underline"
+                            >
+                                sign in
+                            </a>{' '}
+                            to leave a comment.
                         </p>
                     </div>
                 )}
@@ -100,19 +121,25 @@ export default function CommentSection({ blogId, hideForm = false, onlyForm = fa
     return (
         <div className="mt-6">
             {/* Comment Form */}
-            {!hideForm && (
-                user ? (
+            {!hideForm &&
+                (user ? (
                     <div className="mb-8">
                         <CommentForm onSubmit={handleSubmitComment} user={user} />
                     </div>
                 ) : (
                     <div className="mb-8 p-4 bg-gray-50 rounded-xl text-center">
                         <p className="text-sm text-gray-500">
-                            Please <a href="/login" className="text-brand-primary font-medium hover:underline">sign in</a> to leave a comment.
+                            Please{' '}
+                            <a
+                                href="/login"
+                                className="text-brand-primary font-medium hover:underline"
+                            >
+                                sign in
+                            </a>{' '}
+                            to leave a comment.
                         </p>
                     </div>
-                )
-            )}
+                ))}
 
             {/* Comments List */}
             {loading ? (

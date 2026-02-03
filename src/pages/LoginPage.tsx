@@ -30,8 +30,12 @@ export default function LoginPage() {
                 dispatch(setSession(data.session));
                 navigate('/');
             }
-        } catch (err: any) {
-            setError(err.message || 'Failed to login');
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('Failed to login');
+            }
         } finally {
             setLoading(false);
         }
@@ -41,8 +45,12 @@ export default function LoginPage() {
         <div className="flex flex-col items-center justify-center min-h-[80vh] px-3 sm:px-4">
             <div className="w-full max-w-md bg-white p-6 sm:p-8 md:p-10 rounded-xl sm:rounded-2xl shadow-xl border border-brand-secondary/20 backdrop-blur-sm">
                 <div className="text-center mb-6 sm:mb-8">
-                    <h1 className="text-2xl sm:text-3xl font-extrabold text-brand-dark mb-2">Welcome Back</h1>
-                    <p className="text-sm sm:text-base text-gray-500">Sign in to continue to BlogApp</p>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-brand-dark mb-2">
+                        Welcome Back
+                    </h1>
+                    <p className="text-sm sm:text-base text-gray-500">
+                        Sign in to continue to BlogApp
+                    </p>
                 </div>
 
                 {error && (
@@ -53,7 +61,9 @@ export default function LoginPage() {
 
                 <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6">
                     <div className="space-y-2">
-                        <label className="block text-sm font-semibold text-brand-dark">Email Address</label>
+                        <label className="block text-sm font-semibold text-brand-dark">
+                            Email Address
+                        </label>
                         <input
                             type="email"
                             value={email}
@@ -66,7 +76,9 @@ export default function LoginPage() {
 
                     <div className="space-y-2">
                         <div className="flex justify-between items-center">
-                            <label className="block text-sm font-semibold text-brand-dark">Password</label>
+                            <label className="block text-sm font-semibold text-brand-dark">
+                                Password
+                            </label>
                             {/* Forgot password link could go here */}
                         </div>
                         <input
@@ -91,7 +103,10 @@ export default function LoginPage() {
                 <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-100 text-center text-xs sm:text-sm text-gray-600">
                     <p>
                         Don't have an account?{' '}
-                        <Link to="/register" className="text-brand-primary hover:text-brand-dark font-bold hover:underline transition-all">
+                        <Link
+                            to="/register"
+                            className="text-brand-primary hover:text-brand-dark font-bold hover:underline transition-all"
+                        >
                             Create an account
                         </Link>
                     </p>

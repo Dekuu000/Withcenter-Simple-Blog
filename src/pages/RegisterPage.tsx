@@ -5,7 +5,6 @@ import { useAppDispatch } from '../hooks/redux';
 import { setSession } from '../features/auth/authSlice';
 import { Eye, EyeOff } from 'lucide-react';
 
-
 export default function RegisterPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -52,8 +51,12 @@ export default function RegisterPage() {
                 // If confirm is OFF, we usually get a session immediately.
                 navigate('/login');
             }
-        } catch (err: any) {
-            setError(err.message || 'Failed to register');
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('Failed to register');
+            }
         } finally {
             setLoading(false);
         }
@@ -63,8 +66,12 @@ export default function RegisterPage() {
         <div className="flex flex-col items-center justify-center min-h-[80vh] px-3 sm:px-4 py-8">
             <div className="w-full max-w-md bg-white p-6 sm:p-8 md:p-10 rounded-xl sm:rounded-2xl shadow-xl border border-brand-secondary/20 backdrop-blur-sm">
                 <div className="text-center mb-6 sm:mb-8">
-                    <h1 className="text-2xl sm:text-3xl font-extrabold text-brand-dark mb-2">Create Account</h1>
-                    <p className="text-sm sm:text-base text-gray-500">Join our community of writers today</p>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-brand-dark mb-2">
+                        Create Account
+                    </h1>
+                    <p className="text-sm sm:text-base text-gray-500">
+                        Join our community of writers today
+                    </p>
                 </div>
 
                 {error && (
@@ -75,15 +82,18 @@ export default function RegisterPage() {
 
                 <form onSubmit={handleRegister} className="space-y-5">
                     <div className="space-y-2">
-                        <label className="block text-sm font-semibold text-brand-dark">Email Address</label>
+                        <label className="block text-sm font-semibold text-brand-dark">
+                            Email Address
+                        </label>
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className={`w-full px-3 sm:px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all bg-gray-50/50 hover:bg-white text-sm sm:text-base ${isEmailInvalid
-                                ? 'border-red-300 focus:ring-red-500/50 focus:border-red-500'
-                                : 'border-gray-200 focus:ring-brand-primary/20 focus:border-brand-primary'
-                                }`}
+                            className={`w-full px-3 sm:px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all bg-gray-50/50 hover:bg-white text-sm sm:text-base ${
+                                isEmailInvalid
+                                    ? 'border-red-300 focus:ring-red-500/50 focus:border-red-500'
+                                    : 'border-gray-200 focus:ring-brand-primary/20 focus:border-brand-primary'
+                            }`}
                             placeholder="you@example.com"
                             required
                         />
@@ -95,7 +105,9 @@ export default function RegisterPage() {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="block text-sm font-semibold text-brand-dark">Password</label>
+                        <label className="block text-sm font-semibold text-brand-dark">
+                            Password
+                        </label>
                         <div className="relative">
                             <input
                                 type={showPassword ? 'text' : 'password'}
@@ -112,22 +124,29 @@ export default function RegisterPage() {
                                 className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-primary focus:outline-none transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
                                 aria-label="Toggle password visibility"
                             >
-                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                {showPassword ? (
+                                    <EyeOff className="w-5 h-5" />
+                                ) : (
+                                    <Eye className="w-5 h-5" />
+                                )}
                             </button>
                         </div>
                     </div>
 
                     <div className="space-y-2">
-                        <label className="block text-sm font-semibold text-brand-dark">Confirm Password</label>
+                        <label className="block text-sm font-semibold text-brand-dark">
+                            Confirm Password
+                        </label>
                         <div className="relative">
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                className={`w-full px-3 sm:px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 pr-10 sm:pr-12 transition-all bg-gray-50/50 hover:bg-white text-sm sm:text-base ${isPasswordMismatch
-                                    ? 'border-red-300 focus:ring-red-500/50 focus:border-red-500'
-                                    : 'border-gray-200 focus:ring-brand-primary/20 focus:border-brand-primary'
-                                    }`}
+                                className={`w-full px-3 sm:px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 pr-10 sm:pr-12 transition-all bg-gray-50/50 hover:bg-white text-sm sm:text-base ${
+                                    isPasswordMismatch
+                                        ? 'border-red-300 focus:ring-red-500/50 focus:border-red-500'
+                                        : 'border-gray-200 focus:ring-brand-primary/20 focus:border-brand-primary'
+                                }`}
                                 placeholder="Re-enter password"
                                 minLength={6}
                                 required
@@ -138,7 +157,11 @@ export default function RegisterPage() {
                                 className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-primary focus:outline-none transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
                                 aria-label="Toggle password visibility"
                             >
-                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                {showPassword ? (
+                                    <EyeOff className="w-5 h-5" />
+                                ) : (
+                                    <Eye className="w-5 h-5" />
+                                )}
                             </button>
                         </div>
                         {isPasswordMismatch && (
@@ -150,7 +173,14 @@ export default function RegisterPage() {
 
                     <button
                         type="submit"
-                        disabled={loading || !!isPasswordMismatch || !!isEmailInvalid || !email || !password || !confirmPassword}
+                        disabled={
+                            loading ||
+                            !!isPasswordMismatch ||
+                            !!isEmailInvalid ||
+                            !email ||
+                            !password ||
+                            !confirmPassword
+                        }
                         className="w-full bg-brand-primary text-white py-3 sm:py-3.5 px-4 rounded-xl hover:bg-brand-dark transition-all disabled:opacity-70 disabled:cursor-not-allowed font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transform duration-200 mt-2 text-sm sm:text-base min-h-[44px]"
                     >
                         {loading ? 'Creating account...' : 'Create Account'}
@@ -160,7 +190,10 @@ export default function RegisterPage() {
                 <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-100 text-center text-xs sm:text-sm text-gray-600">
                     <p>
                         Already have an account?{' '}
-                        <Link to="/login" className="text-brand-primary hover:text-brand-dark font-bold hover:underline transition-all">
+                        <Link
+                            to="/login"
+                            className="text-brand-primary hover:text-brand-dark font-bold hover:underline transition-all"
+                        >
                             Log in
                         </Link>
                     </p>

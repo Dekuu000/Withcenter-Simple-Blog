@@ -15,26 +15,25 @@ const initialState: CommentState = {
 };
 
 // Async Thunks
-export const fetchComments = createAsyncThunk(
-    'comment/fetchComments',
-    async (blogId: string) => {
-        return await commentApi.getCommentsByBlog(blogId);
-    }
-);
+export const fetchComments = createAsyncThunk('comment/fetchComments', async (blogId: string) => {
+    return await commentApi.getCommentsByBlog(blogId);
+});
 
 export const createComment = createAsyncThunk(
     'comment/createComment',
-    async (comment: { content: string; image_url?: string; blog_id: string; author_id: string }) => {
+    async (comment: {
+        content: string;
+        image_url?: string;
+        blog_id: string;
+        author_id: string;
+    }) => {
         return await commentApi.createComment(comment);
     }
 );
 
-export const deleteComment = createAsyncThunk(
-    'comment/deleteComment',
-    async (id: string) => {
-        return await commentApi.deleteComment(id);
-    }
-);
+export const deleteComment = createAsyncThunk('comment/deleteComment', async (id: string) => {
+    return await commentApi.deleteComment(id);
+});
 
 const commentSlice = createSlice({
     name: 'comment',
@@ -65,7 +64,7 @@ const commentSlice = createSlice({
             })
             // Delete Comment
             .addCase(deleteComment.fulfilled, (state, action) => {
-                state.comments = state.comments.filter(c => c.id !== action.payload);
+                state.comments = state.comments.filter((c) => c.id !== action.payload);
             });
     },
 });

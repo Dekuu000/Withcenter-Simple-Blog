@@ -6,7 +6,11 @@ interface PostActionsProps {
     className?: string;
 }
 
-export default function PostActions({ commentCount, onCommentClick, className = '' }: PostActionsProps) {
+export default function PostActions({
+    commentCount,
+    onCommentClick,
+    className = '',
+}: PostActionsProps) {
     return (
         <div className={`border-t border-b border-gray-200 py-1.5 sm:py-2 ${className}`}>
             <div className="flex items-center justify-around max-w-2xl mx-auto gap-1">
@@ -27,8 +31,7 @@ export default function PostActions({ commentCount, onCommentClick, className = 
                 >
                     <MessageCircle className="w-4 sm:w-5 h-4 sm:h-5 group-hover:scale-110 transition-transform" />
                     <span className="font-medium text-xs sm:text-sm">
-                        <span className="hidden sm:inline">Comment </span>
-                        {commentCount > 0 && `(${commentCount})`}
+                        Comment{commentCount > 0 && ` (${commentCount})`}
                     </span>
                 </button>
 

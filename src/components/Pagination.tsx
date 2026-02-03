@@ -7,7 +7,12 @@ interface PaginationProps {
     isLoading?: boolean;
 }
 
-export default function Pagination({ currentPage, totalPages, onPageChange, isLoading = false }: PaginationProps) {
+export default function Pagination({
+    currentPage,
+    totalPages,
+    onPageChange,
+    isLoading = false,
+}: PaginationProps) {
     if (totalPages <= 1) return null;
 
     return (
@@ -29,7 +34,8 @@ export default function Pagination({ currentPage, totalPages, onPageChange, isLo
                 {/* Page Info - Center Column */}
                 <div className="flex justify-center">
                     <span className="text-xs sm:text-sm font-medium text-brand-dark/60 bg-brand-bg/30 px-3 sm:px-4 py-1.5 rounded-full border border-brand-secondary/10 whitespace-nowrap">
-                        Page <span className="text-brand-dark font-bold">{currentPage}</span> of {totalPages}
+                        Page <span className="text-brand-dark font-bold">{currentPage}</span> of{' '}
+                        {totalPages}
                     </span>
                 </div>
 

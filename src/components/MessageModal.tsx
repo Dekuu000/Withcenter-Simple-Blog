@@ -17,7 +17,7 @@ export default function MessageModal({
     title,
     message,
     type = 'success',
-    autoCloseDuration = 3000 // Default 3 seconds
+    autoCloseDuration = 3000, // Default 3 seconds
 }: MessageModalProps) {
     const isSuccess = type === 'success';
 
@@ -34,16 +34,26 @@ export default function MessageModal({
     return (
         <Modal isOpen={isOpen} onClose={onClose} title={title}>
             <div className="text-center">
-                <div className={`mx-auto w-12 h-12 rounded-full flex items-center justify-center mb-4 ${isSuccess ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-                    }`}>
-                    {isSuccess ? <CheckCircle className="w-6 h-6" /> : <XCircle className="w-6 h-6" />}
+                <div
+                    className={`mx-auto w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
+                        isSuccess ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                    }`}
+                >
+                    {isSuccess ? (
+                        <CheckCircle className="w-6 h-6" />
+                    ) : (
+                        <XCircle className="w-6 h-6" />
+                    )}
                 </div>
                 <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">{title}</h3>
                 <p className="text-sm sm:text-base text-gray-500 mb-6">{message}</p>
                 <button
                     onClick={onClose}
-                    className={`w-full py-3 sm:py-2.5 rounded-lg text-white font-medium transition-colors text-sm sm:text-base min-h-[44px] ${isSuccess ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-red-600 hover:bg-red-700'
-                        }`}
+                    className={`w-full py-3 sm:py-2.5 rounded-lg text-white font-medium transition-colors text-sm sm:text-base min-h-[44px] ${
+                        isSuccess
+                            ? 'bg-indigo-600 hover:bg-indigo-700'
+                            : 'bg-red-600 hover:bg-red-700'
+                    }`}
                 >
                     {isSuccess ? 'Great!' : 'Close'}
                 </button>

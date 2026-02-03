@@ -10,7 +10,12 @@ interface CommentItemProps {
     isDeleting?: boolean;
 }
 
-export default function CommentItem({ comment, isAuthor, onDelete, isDeleting = false }: CommentItemProps) {
+export default function CommentItem({
+    comment,
+    isAuthor,
+    onDelete,
+    isDeleting = false,
+}: CommentItemProps) {
     const [showFullImage, setShowFullImage] = useState(false);
 
     return (
@@ -25,7 +30,9 @@ export default function CommentItem({ comment, isAuthor, onDelete, isDeleting = 
                             className="w-full h-full object-cover"
                         />
                     ) : (
-                        (comment.profiles?.full_name || comment.profiles?.email || '?').charAt(0).toUpperCase()
+                        (comment.profiles?.full_name || comment.profiles?.email || '?')
+                            .charAt(0)
+                            .toUpperCase()
                     )}
                 </div>
             </div>
@@ -37,7 +44,9 @@ export default function CommentItem({ comment, isAuthor, onDelete, isDeleting = 
                     <div className="flex items-center justify-between gap-2 mb-1">
                         <div className="flex items-center gap-2">
                             <span className="font-semibold text-sm text-brand-dark">
-                                {comment.profiles?.full_name || comment.profiles?.email?.split('@')[0] || 'Anonymous'}
+                                {comment.profiles?.full_name ||
+                                    comment.profiles?.email?.split('@')[0] ||
+                                    'Anonymous'}
                             </span>
                             <span className="text-xs text-gray-400">
                                 {format(new Date(comment.created_at), 'MMM d, yyyy · h:mm a')}

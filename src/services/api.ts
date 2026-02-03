@@ -38,18 +38,22 @@ export const blogApi = {
         return data as unknown as Blog;
     },
 
-    async createBlog(blog: { title: string; content: string; author_id: string; image_url?: string }) {
-        const { data, error } = await supabase
-            .from('blogs')
-            .insert([blog])
-            .select()
-            .single();
+    async createBlog(blog: {
+        title: string;
+        content: string;
+        author_id: string;
+        image_url?: string;
+    }) {
+        const { data, error } = await supabase.from('blogs').insert([blog]).select().single();
 
         if (error) throw error;
         return data as unknown as Blog;
     },
 
-    async updateBlog(id: string, updates: { title?: string; content?: string; image_url?: string | null }) {
+    async updateBlog(
+        id: string,
+        updates: { title?: string; content?: string; image_url?: string | null }
+    ) {
         const { data, error } = await supabase
             .from('blogs')
             .update({ ...updates, updated_at: new Date().toISOString() })
@@ -62,14 +66,11 @@ export const blogApi = {
     },
 
     async deleteBlog(id: string) {
-        const { error } = await supabase
-            .from('blogs')
-            .delete()
-            .eq('id', id);
+        const { error } = await supabase.from('blogs').delete().eq('id', id);
 
         if (error) throw error;
         return id;
-    }
+    },
 };
 
 // Storage API for image uploads
@@ -79,15 +80,11 @@ export const storageApi = {
         const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
         const filePath = `${fileName}`;
 
-        const { error: uploadError } = await supabase.storage
-            .from(bucket)
-            .upload(filePath, file);
+        const { error: uploadError } = await supabase.storage.from(bucket).upload(filePath, file);
 
         if (uploadError) throw uploadError;
 
-        const { data } = supabase.storage
-            .from(bucket)
-            .getPublicUrl(filePath);
+        const { data } = supabase.storage.from(bucket).getPublicUrl(filePath);
 
         return data.publicUrl;
     },
@@ -97,12 +94,10 @@ export const storageApi = {
         const urlParts = url.split('/');
         const fileName = urlParts[urlParts.length - 1];
 
-        const { error } = await supabase.storage
-            .from(bucket)
-            .remove([fileName]);
+        const { error } = await supabase.storage.from(bucket).remove([fileName]);
 
         if (error) throw error;
-    }
+    },
 };
 
 // Comment API
@@ -118,7 +113,12 @@ export const commentApi = {
         return data as unknown as Comment[];
     },
 
-    async createComment(comment: { content: string; image_url?: string; blog_id: string; author_id: string }) {
+    async createComment(comment: {
+        content: string;
+        image_url?: string;
+        blog_id: string;
+        author_id: string;
+    }) {
         const { data, error } = await supabase
             .from('comments')
             .insert([comment])
@@ -130,12 +130,9 @@ export const commentApi = {
     },
 
     async deleteComment(id: string) {
-        const { error } = await supabase
-            .from('comments')
-            .delete()
-            .eq('id', id);
+        const { error } = await supabase.from('comments').delete().eq('id', id);
 
         if (error) throw error;
         return id;
-    }
+    },
 };

@@ -37,7 +37,10 @@ export default function CommentModal({ isOpen, onClose, blog }: CommentModalProp
             >
                 {/* Header */}
                 <div className="flex-shrink-0 bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-                    <h2 className="text-base sm:text-lg font-bold text-gray-900 truncate pr-2">{blog.profiles?.full_name || blog.profiles?.email?.split('@')[0] || 'User'}'s Post</h2>
+                    <h2 className="text-base sm:text-lg font-bold text-gray-900 truncate pr-2">
+                        {blog.profiles?.full_name || blog.profiles?.email?.split('@')[0] || 'User'}
+                        's Post
+                    </h2>
                     <button
                         onClick={onClose}
                         className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all shrink-0"
@@ -51,7 +54,9 @@ export default function CommentModal({ isOpen, onClose, blog }: CommentModalProp
                 <div className="flex-1 overflow-y-auto">
                     {/* Post Preview */}
                     <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100 bg-gray-50/50">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{blog.title}</h3>
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                            {blog.title}
+                        </h3>
                         <p className="text-gray-600 text-sm line-clamp-3 mb-3">{blog.content}</p>
 
                         {blog.image_url && (
@@ -78,10 +83,7 @@ export default function CommentModal({ isOpen, onClose, blog }: CommentModalProp
             </div>
 
             {/* Click outside to close */}
-            <div
-                className="absolute inset-0 -z-10"
-                onClick={onClose}
-            />
+            <div className="absolute inset-0 -z-10" onClick={onClose} />
         </div>,
         document.body
     );

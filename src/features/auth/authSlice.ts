@@ -19,7 +19,10 @@ const initialState: AuthState = {
 
 // Async thunk to check current session on app load
 export const checkSession = createAsyncThunk('auth/checkSession', async () => {
-    const { data: { session }, error } = await supabase.auth.getSession();
+    const {
+        data: { session },
+        error,
+    } = await supabase.auth.getSession();
     if (error) throw error;
     return session;
 });

@@ -46,7 +46,11 @@ export default function UserProfileMenu({ user, onLogout }: UserProfileMenuProps
                 {/* Avatar */}
                 <div className="h-9 w-9 rounded-full bg-brand-bg flex items-center justify-center text-brand-primary font-bold border-2 border-brand-secondary/30 overflow-hidden shrink-0 shadow-sm group-hover:border-brand-primary/50 transition-colors">
                     {avatarUrl ? (
-                        <img src={avatarUrl} alt={displayName} className="h-full w-full object-cover" />
+                        <img
+                            src={avatarUrl}
+                            alt={displayName}
+                            className="h-full w-full object-cover"
+                        />
                     ) : (
                         <span className="text-sm">{initial}</span>
                     )}
@@ -68,7 +72,9 @@ export default function UserProfileMenu({ user, onLogout }: UserProfileMenuProps
                 <div className="absolute right-0 mt-2 w-52 sm:w-60 bg-white rounded-xl shadow-xl py-2 border border-gray-200 ring-1 ring-black/5 z-50 animate-fade-in-up origin-top-right">
                     {/* User Info Header */}
                     <div className="px-3 sm:px-4 py-3 border-b border-gray-100 mb-1">
-                        <p className="text-sm font-semibold text-gray-900 truncate">{displayName}</p>
+                        <p className="text-sm font-semibold text-gray-900 truncate">
+                            {displayName}
+                        </p>
                         <p className="text-xs text-gray-500 truncate">{email}</p>
                     </div>
 

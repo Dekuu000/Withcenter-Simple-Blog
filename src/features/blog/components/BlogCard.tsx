@@ -50,7 +50,11 @@ export default function BlogCard({ blog, currentUser, linkState }: BlogCardProps
                     <div className="flex items-center gap-1.5">
                         <User className="w-3.5 h-3.5 shrink-0" />
                         <span className="font-medium truncate">
-                            {isAuthor ? 'Written by You' : (blog.profiles?.full_name || blog.profiles?.email || 'Unknown Author')}
+                            {isAuthor
+                                ? 'Written by You'
+                                : blog.profiles?.full_name ||
+                                  blog.profiles?.email ||
+                                  'Unknown Author'}
                         </span>
                     </div>
                     <div className="flex items-center gap-1.5">

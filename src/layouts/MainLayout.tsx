@@ -15,7 +15,7 @@ export default function MainLayout() {
         dispatch(checkSession());
 
         // Real-time auth state listener
-        const { data: subscription } = supabase.auth.onAuthStateChange(async (_event, session) => {
+        const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
             if (session) {
                 dispatch(setSession(session));
             } else {
@@ -37,7 +37,10 @@ export default function MainLayout() {
         <div className="min-h-screen bg-brand-bg text-brand-dark font-sans flex flex-col">
             <header className="bg-white/90 backdrop-blur-sm shadow-sm border-b border-brand-secondary/30 sticky top-0 z-20 shrink-0">
                 <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 h-14 sm:h-16 md:h-18 flex items-center justify-between gap-2 sm:gap-4">
-                    <Link to="/" className="text-xl sm:text-2xl font-bold text-brand-primary tracking-tight hover:text-brand-dark transition-colors shrink-0">
+                    <Link
+                        to="/"
+                        className="text-xl sm:text-2xl font-bold text-brand-primary tracking-tight hover:text-brand-dark transition-colors shrink-0"
+                    >
                         BlogApp
                     </Link>
 
@@ -46,7 +49,10 @@ export default function MainLayout() {
                             <UserProfileMenu user={user} onLogout={handleLogout} />
                         ) : (
                             <div className="flex items-center gap-2 sm:gap-3">
-                                <Link to="/login" className="text-xs sm:text-sm font-medium text-brand-dark px-3 sm:px-4 py-2 rounded-lg hover:bg-brand-bg/50 hover:text-brand-primary transition-all">
+                                <Link
+                                    to="/login"
+                                    className="text-xs sm:text-sm font-medium text-brand-dark px-3 sm:px-4 py-2 rounded-lg hover:bg-brand-bg/50 hover:text-brand-primary transition-all"
+                                >
                                     Login
                                 </Link>
                                 <Link

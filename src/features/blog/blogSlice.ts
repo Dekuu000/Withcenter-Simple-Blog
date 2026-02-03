@@ -33,12 +33,9 @@ export const fetchBlogsByAuthor = createAsyncThunk(
     }
 );
 
-export const fetchBlogById = createAsyncThunk(
-    'blog/fetchBlogById',
-    async (id: string) => {
-        return await blogApi.getBlogById(id);
-    }
-);
+export const fetchBlogById = createAsyncThunk('blog/fetchBlogById', async (id: string) => {
+    return await blogApi.getBlogById(id);
+});
 
 export const createBlog = createAsyncThunk(
     'blog/createBlog',
@@ -49,17 +46,24 @@ export const createBlog = createAsyncThunk(
 
 export const updateBlog = createAsyncThunk(
     'blog/updateBlog',
-    async ({ id, title, content, image_url }: { id: string; title: string; content: string; image_url?: string | null }) => {
+    async ({
+        id,
+        title,
+        content,
+        image_url,
+    }: {
+        id: string;
+        title: string;
+        content: string;
+        image_url?: string | null;
+    }) => {
         return await blogApi.updateBlog(id, { title, content, image_url });
     }
 );
 
-export const deleteBlog = createAsyncThunk(
-    'blog/deleteBlog',
-    async (id: string) => {
-        return await blogApi.deleteBlog(id);
-    }
-);
+export const deleteBlog = createAsyncThunk('blog/deleteBlog', async (id: string) => {
+    return await blogApi.deleteBlog(id);
+});
 
 const blogSlice = createSlice({
     name: 'blog',
@@ -118,14 +122,14 @@ const blogSlice = createSlice({
             // Update Blog
             .addCase(updateBlog.fulfilled, (state, action) => {
                 state.currentBlog = action.payload;
-                const index = state.blogs.findIndex(b => b.id === action.payload.id);
+                const index = state.blogs.findIndex((b) => b.id === action.payload.id);
                 if (index !== -1) {
                     state.blogs[index] = action.payload;
                 }
             })
             // Delete Blog
             .addCase(deleteBlog.fulfilled, (state, action) => {
-                state.blogs = state.blogs.filter(b => b.id !== action.payload);
+                state.blogs = state.blogs.filter((b) => b.id !== action.payload);
                 if (state.currentBlog?.id === action.payload) {
                     state.currentBlog = null;
                 }

@@ -5,7 +5,7 @@ import { fetchBlogById, updateBlog, clearCurrentBlog } from '../features/blog/bl
 import { storageApi } from '../services/api';
 import { Loader2 } from 'lucide-react';
 import MessageModal from '../components/MessageModal';
-import ImageUpload from '../components/ImageUpload';
+import PremiumImageUpload from '../components/PremiumImageUpload';
 
 export default function UpdateBlog() {
     const { id } = useParams<{ id: string }>();
@@ -94,16 +94,15 @@ export default function UpdateBlog() {
                 isOpen: true,
                 type: 'success',
                 title: 'Update Successful',
-                message: 'Your story has been successfully updated.'
+                message: 'Your story has been successfully updated.',
             });
-
         } catch (err: any) {
             // Show Error Modal
             setMessageModal({
                 isOpen: true,
                 type: 'error',
                 title: 'Update Failed',
-                message: err.message || 'Failed to update blog. Please try again.'
+                message: err.message || 'Failed to update blog. Please try again.',
             });
         } finally {
             setIsSubmitting(false);
@@ -124,7 +123,7 @@ export default function UpdateBlog() {
     };
 
     const handleModalClose = () => {
-        setMessageModal(prev => ({ ...prev, isOpen: false }));
+        setMessageModal((prev) => ({ ...prev, isOpen: false }));
         if (messageModal.type === 'success' && id) {
             navigate(`/blog/${id}`);
         }
@@ -142,15 +141,25 @@ export default function UpdateBlog() {
         <div className="min-h-screen bg-brand-bg/30 py-10 px-3 sm:px-4 md:px-6 animate-fade-in">
             <div className="max-w-5xl mx-auto">
                 <div className="mb-6 sm:mb-8 text-center max-w-2xl mx-auto">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-brand-dark tracking-tight">Edit Story</h1>
-                    <p className="text-sm sm:text-base text-brand-dark/60 mt-2">Refine your masterpiece.</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-brand-dark tracking-tight">
+                        Edit Story
+                    </h1>
+                    <p className="text-sm sm:text-base text-brand-dark/60 mt-2">
+                        Refine your masterpiece.
+                    </p>
                 </div>
 
                 <div className="bg-white shadow-xl shadow-brand-secondary/5 rounded-xl sm:rounded-2xl border border-brand-secondary/20 overflow-hidden max-w-5xl mx-auto">
-                    <form onSubmit={handleSubmit} className="p-4 sm:p-6 md:p-10 space-y-6 sm:space-y-8">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="p-4 sm:p-6 md:p-10 space-y-6 sm:space-y-8"
+                    >
                         {/* Title Section */}
                         <div className="space-y-2">
-                            <label htmlFor="title" className="block text-sm font-semibold text-brand-dark">
+                            <label
+                                htmlFor="title"
+                                className="block text-sm font-semibold text-brand-dark"
+                            >
                                 Title
                             </label>
                             <input
@@ -166,7 +175,7 @@ export default function UpdateBlog() {
                         </div>
 
                         {/* Image Upload Section */}
-                        <ImageUpload
+                        <PremiumImageUpload
                             value={existingImageUrl}
                             onChange={handleImageChange}
                             onRemove={handleImageRemove}
@@ -175,16 +184,34 @@ export default function UpdateBlog() {
 
                         {/* Content Section */}
                         <div className="space-y-2 flex flex-col flex-grow">
-                            <label htmlFor="content" className="block text-sm font-semibold text-brand-dark">
+                            <label
+                                htmlFor="content"
+                                className="block text-sm font-semibold text-brand-dark"
+                            >
                                 Content
                             </label>
                             <div className="border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-brand-primary/20 focus-within:border-brand-primary transition-all bg-white shadow-sm flex flex-col">
                                 {/* Mock Toolbar */}
                                 <div className="bg-gray-50/80 border-b border-gray-100 px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-1 sm:gap-2 text-gray-600 text-xs sm:text-sm select-none overflow-x-auto">
-                                    <span className="hover:text-brand-primary cursor-pointer p-1 sm:p-1.5 rounded-md hover:bg-brand-bg/50 transition-colors min-w-[32px] text-center" title="Bold"><strong>B</strong></span>
-                                    <span className="hover:text-brand-primary cursor-pointer p-1 sm:p-1.5 rounded-md hover:bg-brand-bg/50 transition-colors italic min-w-[32px] text-center" title="Italic"><em>I</em></span>
+                                    <span
+                                        className="hover:text-brand-primary cursor-pointer p-1 sm:p-1.5 rounded-md hover:bg-brand-bg/50 transition-colors min-w-[32px] text-center"
+                                        title="Bold"
+                                    >
+                                        <strong>B</strong>
+                                    </span>
+                                    <span
+                                        className="hover:text-brand-primary cursor-pointer p-1 sm:p-1.5 rounded-md hover:bg-brand-bg/50 transition-colors italic min-w-[32px] text-center"
+                                        title="Italic"
+                                    >
+                                        <em>I</em>
+                                    </span>
                                     <div className="w-px h-3 sm:h-4 bg-gray-300 mx-1 sm:mx-2"></div>
-                                    <span className="hover:text-brand-primary cursor-pointer p-1 sm:p-1.5 rounded-md hover:bg-brand-bg/50 transition-colors underline whitespace-nowrap" title="Link">Link</span>
+                                    <span
+                                        className="hover:text-brand-primary cursor-pointer p-1 sm:p-1.5 rounded-md hover:bg-brand-bg/50 transition-colors underline whitespace-nowrap"
+                                        title="Link"
+                                    >
+                                        Link
+                                    </span>
                                 </div>
 
                                 <textarea

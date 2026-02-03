@@ -43,7 +43,9 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
                 aria-modal="true"
             >
                 <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
-                    <h3 className="text-base sm:text-lg font-bold text-gray-900 truncate pr-2">{title}</h3>
+                    <h3 className="text-base sm:text-lg font-bold text-gray-900 truncate pr-2">
+                        {title}
+                    </h3>
                     <button
                         onClick={onClose}
                         className="text-gray-400 hover:text-gray-600 transition-colors p-2 rounded-lg hover:bg-gray-100 shrink-0 min-w-[44px] min-h-[44px] flex items-center justify-center"
@@ -52,9 +54,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
                         <X className="w-5 h-5" />
                     </button>
                 </div>
-                <div className="p-4 sm:p-6">
-                    {children}
-                </div>
+                <div className="p-4 sm:p-6">{children}</div>
             </div>
         </div>,
         document.body
