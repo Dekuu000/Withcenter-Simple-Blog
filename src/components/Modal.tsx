@@ -31,9 +31,13 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
     if (!isOpen) return null;
 
     return createPortal(
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/70 backdrop-blur-md animate-fade-in"
+            onClick={onClose}
+        >
             <div
                 ref={modalRef}
+                onClick={(e) => e.stopPropagation()}
                 className="bg-white rounded-xl shadow-2xl w-full max-w-full sm:max-w-md md:max-w-lg overflow-hidden animate-scale-in"
                 role="dialog"
                 aria-modal="true"

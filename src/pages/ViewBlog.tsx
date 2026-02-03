@@ -28,6 +28,11 @@ export default function ViewBlog() {
     const backLink = location.state?.from || '/';
     const backLabel = location.state?.label || 'Back to all posts';
 
+    // Handle comment button click
+    const handleCommentClick = () => {
+        setIsCommentModalOpen(true);
+    };
+
     useEffect(() => {
         if (id) {
             dispatch(fetchBlogById(id));
@@ -178,7 +183,7 @@ export default function ViewBlog() {
                     {/* Post Actions integrated in card */}
                     <PostActions
                         commentCount={comments.length}
-                        onCommentClick={() => setIsCommentModalOpen(true)}
+                        onCommentClick={handleCommentClick}
                     />
                 </div>
 

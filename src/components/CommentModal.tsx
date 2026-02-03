@@ -2,6 +2,7 @@ import { X } from 'lucide-react';
 import { Blog } from '../types';
 import CommentSection from './CommentSection';
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 interface CommentModalProps {
     isOpen: boolean;
@@ -24,10 +25,16 @@ export default function CommentModal({ isOpen, onClose, blog }: CommentModalProp
 
     if (!isOpen) return null;
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in p-2 sm:p-4">
+    return createPortal(
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md animate-fade-in p-2 sm:p-4"
+            onClick={onClose}
+        >
             {/* Modal Container */}
-            <div className="relative w-full max-w-full sm:max-w-2xl max-h-[95vh] sm:max-h-[90vh] md:h-[85vh] bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden animate-slide-up flex flex-col">
+            <div
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-full sm:max-w-2xl max-h-[95vh] sm:max-h-[90vh] md:h-[85vh] bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden animate-slide-up flex flex-col"
+            >
                 {/* Header */}
                 <div className="flex-shrink-0 bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
                     <h2 className="text-base sm:text-lg font-bold text-gray-900 truncate pr-2">{blog.profiles?.full_name || blog.profiles?.email?.split('@')[0] || 'User'}'s Post</h2>
@@ -75,6 +82,7 @@ export default function CommentModal({ isOpen, onClose, blog }: CommentModalProp
                 className="absolute inset-0 -z-10"
                 onClick={onClose}
             />
-        </div>
+        </div>,
+        document.body
     );
 }
