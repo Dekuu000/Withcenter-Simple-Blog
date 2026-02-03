@@ -45,8 +45,25 @@ export function validateImageSize(file: File, maxSizeMB: number = 10): ImageVali
     return { isValid: true };
 }
 
-// Get image dimensions
-export function getImageDimensions(file: File): Promise<ImageDimensions> {
+// Get image dimensions using createImageBitmap for better performance and reliability
+export async function getImageDimensions(file: File): Promise<ImageDimensions> {
+    // Try modern createImageBitmap first (supported in most modern browsers)
+    if (typeof createImageBitmap !== 'undefined') {
+        try {
+            const bitmap = await createImageBitmap(file);
+            const dimensions = {
+                width: bitmap.width,
+                height: bitmap.height,
+            };
+            bitmap.close();
+            return dimensions;
+        } catch (e) {
+            console.warn('createImageBitmap failed, falling back to Image object', e);
+            // Fallback to Image object below
+        }
+    }
+
+    // Fallback for older browsers or if createImageBitmap fails
     return new Promise((resolve, reject) => {
         const img = new Image();
         const url = URL.createObjectURL(file);
@@ -61,7 +78,7 @@ export function getImageDimensions(file: File): Promise<ImageDimensions> {
 
         img.onerror = () => {
             URL.revokeObjectURL(url);
-            reject(new Error('Failed to load image'));
+            reject(new Error('Failed to load image for dimensions check'));
         };
 
         img.src = url;
@@ -108,10 +125,10 @@ export async function validateImageDimensions(
         }
 
         return { isValid: true };
-    } catch {
+    } catch (error) {
         return {
             isValid: false,
-            error: 'Failed to read image dimensions',
+            error: error instanceof Error ? error.message : 'Failed to read image dimensions',
         };
     }
 }

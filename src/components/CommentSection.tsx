@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { MessageCircle, Loader2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { fetchComments, createComment, deleteComment } from '../features/comment/commentSlice';
+import {
+    fetchComments,
+    createComment,
+    deleteComment,
+    updateComment,
+} from '../features/comment/commentSlice';
 import { storageApi } from '../services/api';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
@@ -94,6 +99,16 @@ export default function CommentSection({
         }
     };
 
+    const handleUpdateComment = async (id: string, content: string) => {
+        try {
+            await dispatch(updateComment({ id, content })).unwrap();
+        } catch (error: any) {
+            console.error('Failed to update comment:', error);
+            const message = error?.message || 'Failed to update comment. Please try again.';
+            alert(message);
+        }
+    };
+
     // If onlyForm mode, only render the form
     if (onlyForm) {
         return (
@@ -154,6 +169,7 @@ export default function CommentSection({
                             comment={comment}
                             isAuthor={user?.id === comment.author_id}
                             onDelete={handleDeleteComment}
+                            onUpdate={handleUpdateComment}
                             isDeleting={deletingId === comment.id}
                         />
                     ))}

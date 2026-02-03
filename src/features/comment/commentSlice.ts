@@ -31,6 +31,13 @@ export const createComment = createAsyncThunk(
     }
 );
 
+export const updateComment = createAsyncThunk(
+    'comment/updateComment',
+    async ({ id, content }: { id: string; content: string }) => {
+        return await commentApi.updateComment(id, content);
+    }
+);
+
 export const deleteComment = createAsyncThunk('comment/deleteComment', async (id: string) => {
     return await commentApi.deleteComment(id);
 });
@@ -61,6 +68,13 @@ const commentSlice = createSlice({
             // Create Comment
             .addCase(createComment.fulfilled, (state, action) => {
                 state.comments.push(action.payload);
+            })
+            // Update Comment
+            .addCase(updateComment.fulfilled, (state, action) => {
+                const index = state.comments.findIndex((c) => c.id === action.payload.id);
+                if (index !== -1) {
+                    state.comments[index] = action.payload;
+                }
             })
             // Delete Comment
             .addCase(deleteComment.fulfilled, (state, action) => {

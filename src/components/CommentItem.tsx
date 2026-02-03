@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Edit2, X, Check } from 'lucide-react';
 import { format } from 'date-fns';
 import { Comment } from '../types';
 
@@ -7,6 +7,7 @@ interface CommentItemProps {
     comment: Comment;
     isAuthor: boolean;
     onDelete: (id: string) => void;
+    onUpdate?: (id: string, content: string) => Promise<void>;
     isDeleting?: boolean;
 }
 
@@ -14,9 +15,30 @@ export default function CommentItem({
     comment,
     isAuthor,
     onDelete,
+    onUpdate,
     isDeleting = false,
 }: CommentItemProps) {
     const [showFullImage, setShowFullImage] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editContent, setEditContent] = useState(comment.content);
+    const [isUpdating, setIsUpdating] = useState(false);
+
+    const handleUpdate = async () => {
+        if (!editContent.trim() || !onUpdate) return;
+
+        setIsUpdating(true);
+        try {
+            await onUpdate(comment.id, editContent);
+            setIsEditing(false);
+        } finally {
+            setIsUpdating(false);
+        }
+    };
+
+    const handleCancelEdit = () => {
+        setIsEditing(false);
+        setEditContent(comment.content);
+    };
 
     return (
         <div className="flex gap-3 py-4">
@@ -53,22 +75,66 @@ export default function CommentItem({
                             </span>
                         </div>
 
-                        {isAuthor && (
-                            <button
-                                onClick={() => onDelete(comment.id)}
-                                disabled={isDeleting}
-                                className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all disabled:opacity-50 cursor-pointer"
-                                title="Delete comment"
-                            >
-                                <Trash2 className="w-4 h-4" />
-                            </button>
+                        {isAuthor && !isEditing && (
+                            <div className="flex items-center gap-1">
+                                {onUpdate && (
+                                    <button
+                                        onClick={() => setIsEditing(true)}
+                                        className="p-1.5 text-gray-400 hover:text-brand-primary hover:bg-brand-bg/50 rounded-lg transition-all cursor-pointer"
+                                        title="Edit comment"
+                                    >
+                                        <Edit2 className="w-3.5 h-3.5" />
+                                    </button>
+                                )}
+                                <button
+                                    onClick={() => onDelete(comment.id)}
+                                    disabled={isDeleting}
+                                    className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all disabled:opacity-50 cursor-pointer"
+                                    title="Delete comment"
+                                >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                            </div>
                         )}
                     </div>
 
                     {/* Text Content */}
-                    <p className="text-sm text-brand-dark/80 whitespace-pre-wrap break-words">
-                        {comment.content}
-                    </p>
+                    {isEditing ? (
+                        <div className="space-y-2">
+                            <textarea
+                                value={editContent}
+                                onChange={(e) => setEditContent(e.target.value)}
+                                className="w-full p-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary min-h-[80px]"
+                                autoFocus
+                            />
+                            <div className="flex items-center gap-2 justify-end">
+                                <button
+                                    onClick={handleCancelEdit}
+                                    disabled={isUpdating}
+                                    className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all text-xs font-medium flex items-center gap-1"
+                                >
+                                    <X className="w-3.5 h-3.5" />
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleUpdate}
+                                    disabled={isUpdating || !editContent.trim()}
+                                    className="p-1.5 bg-brand-primary text-white rounded-lg hover:bg-brand-primary/90 transition-all text-xs font-medium flex items-center gap-1 disabled:opacity-50"
+                                >
+                                    {isUpdating ? (
+                                        <span className="animate-spin">⌛</span>
+                                    ) : (
+                                        <Check className="w-3.5 h-3.5" />
+                                    )}
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <p className="text-sm text-brand-dark/80 whitespace-pre-wrap break-words">
+                            {comment.content}
+                        </p>
+                    )}
                 </div>
 
                 {/* Attached Image */}

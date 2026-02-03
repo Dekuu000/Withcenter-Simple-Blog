@@ -129,6 +129,18 @@ export const commentApi = {
         return data as unknown as Comment;
     },
 
+    async updateComment(id: string, content: string) {
+        const { data, error } = await supabase
+            .from('comments')
+            .update({ content }) // Removed updated_at as the column doesn't exist in the DB
+            .eq('id', id)
+            .select('*, profiles(email, full_name, id, avatar_url)')
+            .single();
+
+        if (error) throw error;
+        return data as unknown as Comment;
+    },
+
     async deleteComment(id: string) {
         const { error } = await supabase.from('comments').delete().eq('id', id);
 

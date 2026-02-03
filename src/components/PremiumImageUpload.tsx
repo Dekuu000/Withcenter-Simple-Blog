@@ -17,7 +17,6 @@ import { createPortal } from 'react-dom';
 import {
     validateImageType,
     validateImageSize,
-    validateImageDimensions,
     processImage,
     blobToFile,
     formatFileSize,
@@ -54,8 +53,8 @@ export default function PremiumImageUpload({
     disabled = false,
     className = '',
     maxSizeMB = 10,
-    minWidth = 800,
-    minHeight = 400,
+    minWidth: _minWidth = 800,
+    minHeight: _minHeight = 400,
     maxWidth = 1920,
     maxHeight = 1080,
     enableCompression = true,
@@ -126,7 +125,7 @@ export default function PremiumImageUpload({
     }, []);
 
     const handleFileSelect = useCallback(
-        async (file: File | null) => {
+        (file: File | null) => {
             if (!file) return;
 
             resetState();
@@ -152,19 +151,7 @@ export default function PremiumImageUpload({
 
                 setUploadProgress(30);
 
-                if (minWidth || minHeight || maxWidth || maxHeight) {
-                    const dimensionValidation = await validateImageDimensions(
-                        file,
-                        minWidth,
-                        minHeight,
-                        maxWidth,
-                        maxHeight
-                    );
-                    if (!dimensionValidation.isValid) {
-                        throw new Error(dimensionValidation.error);
-                    }
-                }
-
+                // Skipping dimension validation - all image sizes accepted
                 setOriginalSize(file.size);
                 setUploadProgress(50);
 
@@ -192,7 +179,7 @@ export default function PremiumImageUpload({
                 setIsProcessing(false);
             }
         },
-        [maxSizeMB, minWidth, minHeight, maxWidth, maxHeight, resetState]
+        [maxSizeMB, resetState]
     );
 
     const getCroppedImage = useCallback(async (): Promise<Blob> => {
