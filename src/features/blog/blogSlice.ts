@@ -42,15 +42,15 @@ export const fetchBlogById = createAsyncThunk(
 
 export const createBlog = createAsyncThunk(
     'blog/createBlog',
-    async (blog: { title: string; content: string; author_id: string }) => {
+    async (blog: { title: string; content: string; author_id: string; image_url?: string }) => {
         return await blogApi.createBlog(blog);
     }
 );
 
 export const updateBlog = createAsyncThunk(
     'blog/updateBlog',
-    async ({ id, title, content }: { id: string; title: string; content: string }) => {
-        return await blogApi.updateBlog(id, { title, content });
+    async ({ id, title, content, image_url }: { id: string; title: string; content: string; image_url?: string | null }) => {
+        return await blogApi.updateBlog(id, { title, content, image_url });
     }
 );
 

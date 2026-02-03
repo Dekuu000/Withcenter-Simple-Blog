@@ -65,9 +65,9 @@ export default function UserProfileMenu({ user, onLogout }: UserProfileMenuProps
 
             {/* Dropdown Menu */}
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-60 bg-white rounded-xl shadow-xl py-2 border border-gray-200 ring-1 ring-black/5 z-50 animate-fade-in-up origin-top-right">
+                <div className="absolute right-0 mt-2 w-52 sm:w-60 bg-white rounded-xl shadow-xl py-2 border border-gray-200 ring-1 ring-black/5 z-50 animate-fade-in-up origin-top-right">
                     {/* User Info Header */}
-                    <div className="px-4 py-3 border-b border-gray-100 mb-1">
+                    <div className="px-3 sm:px-4 py-3 border-b border-gray-100 mb-1">
                         <p className="text-sm font-semibold text-gray-900 truncate">{displayName}</p>
                         <p className="text-xs text-gray-500 truncate">{email}</p>
                     </div>
@@ -76,7 +76,7 @@ export default function UserProfileMenu({ user, onLogout }: UserProfileMenuProps
                     <div className="px-1 space-y-0.5">
                         <Link
                             to="/profile"
-                            className="flex items-center gap-2.5 px-3 py-2 text-sm text-brand-dark hover:bg-brand-bg/50 hover:text-brand-primary rounded-lg transition-colors group"
+                            className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-brand-dark hover:bg-brand-bg/50 hover:text-brand-primary rounded-lg transition-colors group min-h-[44px]"
                             onClick={() => setIsOpen(false)}
                         >
                             <UserIcon className="w-4 h-4 text-brand-dark/50 group-hover:text-brand-primary" />
@@ -84,7 +84,7 @@ export default function UserProfileMenu({ user, onLogout }: UserProfileMenuProps
                         </Link>
                         <Link
                             to="/my-posts"
-                            className="flex items-center gap-2.5 px-3 py-2 text-sm text-brand-dark hover:bg-brand-bg/50 hover:text-brand-primary rounded-lg transition-colors group"
+                            className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-brand-dark hover:bg-brand-bg/50 hover:text-brand-primary rounded-lg transition-colors group min-h-[44px]"
                             onClick={() => setIsOpen(false)}
                         >
                             <FileText className="w-4 h-4 text-brand-dark/50 group-hover:text-brand-primary" />
@@ -101,7 +101,7 @@ export default function UserProfileMenu({ user, onLogout }: UserProfileMenuProps
                                 setIsOpen(false);
                                 onLogout();
                             }}
-                            className="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors text-left group"
+                            className="flex w-full items-center gap-2.5 px-3 py-2.5 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors text-left group min-h-[44px]"
                         >
                             <LogOut className="w-4 h-4 text-red-400 group-hover:text-red-600" />
                             Logout

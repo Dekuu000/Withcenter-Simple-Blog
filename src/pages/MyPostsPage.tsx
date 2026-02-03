@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { fetchBlogsByAuthor } from '../features/blog/blogSlice';
 import BlogCard from '../features/blog/components/BlogCard';
-import { Loader2, PenTool } from 'lucide-react';
+import { Loader2, PenTool, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function MyPostsPage() {
@@ -43,7 +43,18 @@ export default function MyPostsPage() {
 
     return (
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 animate-fade-in">
-            <header className="mb-10 flex items-center justify-between border-b border-brand-secondary/20 pb-6">
+            {/* Back Link */}
+            <nav className="mb-6">
+                <Link
+                    to="/"
+                    className="group inline-flex items-center text-sm font-medium text-brand-dark/60 hover:text-brand-primary transition-colors"
+                >
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    <span>Back to all posts</span>
+                </Link>
+            </nav>
+
+            <header className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-brand-secondary/20 pb-6 gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Your Posts</h1>
                     <p className="text-brand-dark/60 mt-2 text-sm">
@@ -51,17 +62,15 @@ export default function MyPostsPage() {
                     </p>
                 </div>
 
-                {
-                    blogs.length > 0 && (
-                        <Link
-                            to="/create-blog"
-                            className="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-full hover:bg-brand-dark transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
-                        >
-                            <PenTool className="w-4 h-4" />
-                            Write New
-                        </Link>
-                    )
-                }
+                {blogs.length > 0 && (
+                    <Link
+                        to="/create-blog"
+                        className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-brand-primary text-white text-sm sm:text-base font-semibold rounded-full hover:bg-brand-dark transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 min-h-[44px]"
+                    >
+                        <PenTool className="w-4 h-4 sm:w-5 sm:h-5" />
+                        <span>Write Story</span>
+                    </Link>
+                )}
             </header >
 
             {

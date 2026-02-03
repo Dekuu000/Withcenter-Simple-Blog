@@ -36,22 +36,22 @@ export default function MainLayout() {
     return (
         <div className="min-h-screen bg-brand-bg text-brand-dark font-sans flex flex-col">
             <header className="bg-white/90 backdrop-blur-sm shadow-sm border-b border-brand-secondary/30 sticky top-0 z-20 shrink-0">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
-                    <Link to="/" className="text-2xl font-bold text-brand-primary tracking-tight hover:text-brand-dark transition-colors shrink-0">
+                <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 h-14 sm:h-16 md:h-18 flex items-center justify-between gap-2 sm:gap-4">
+                    <Link to="/" className="text-xl sm:text-2xl font-bold text-brand-primary tracking-tight hover:text-brand-dark transition-colors shrink-0">
                         BlogApp
                     </Link>
 
-                    <nav className="flex items-center gap-3 sm:gap-6">
+                    <nav className="flex items-center gap-2 sm:gap-3 md:gap-6">
                         {user ? (
                             <UserProfileMenu user={user} onLogout={handleLogout} />
                         ) : (
-                            <div className="flex items-center gap-3">
-                                <Link to="/login" className="text-sm font-medium text-brand-dark px-4 py-2 rounded-lg hover:bg-brand-bg/50 hover:text-brand-primary transition-all">
+                            <div className="flex items-center gap-2 sm:gap-3">
+                                <Link to="/login" className="text-xs sm:text-sm font-medium text-brand-dark px-3 sm:px-4 py-2 rounded-lg hover:bg-brand-bg/50 hover:text-brand-primary transition-all">
                                     Login
                                 </Link>
                                 <Link
                                     to="/register"
-                                    className="bg-brand-primary text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-brand-dark transition-all shadow-md hover:shadow-lg transform active:scale-95"
+                                    className="bg-brand-primary text-white px-3 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-brand-dark transition-all shadow-md hover:shadow-lg transform active:scale-95"
                                 >
                                     Register
                                 </Link>
@@ -61,8 +61,8 @@ export default function MainLayout() {
                 </div>
             </header>
 
-            <main className="flex-grow w-full py-10 md:py-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col h-full">
+            <main className="flex-grow w-full py-6 sm:py-10 md:py-16">
+                <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 w-full flex flex-col h-full">
                     <Outlet />
                 </div>
             </main>

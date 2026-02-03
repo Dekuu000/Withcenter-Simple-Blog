@@ -11,7 +11,9 @@ BlogApp is a full-featured blogging application that demonstrates authentication
 -   **Styling**: Tailwind CSS
 -   **Backend**: Supabase (PostgreSQL, Auth, Storage)
 -   **Icons**: Lucide React
--   **Deploy**: Netlify
+-   **Code Quality**: ESLint, Prettier, Husky, lint-staged
+-   **CI/CD**: GitHub Actions
+-   **Deploy**: Netlify (Automated)
 
 ## ✨ Key Features
 
@@ -22,6 +24,8 @@ BlogApp is a full-featured blogging application that demonstrates authentication
 *   **📂 My Posts**: Filtered dashboard for authors to manage their own content.
 *   **💬 Interactive Feedback**: Professional confirmation modals and auto-dismissing success/error feedback.
 *   **🔒 Security**: Row Level Security (RLS) ensures users can only modify their own posts.
+*   **🚀 CI/CD**: Automated testing, linting, and deployment pipeline.
+*   **✨ Code Quality**: Pre-commit hooks, ESLint, and Prettier for consistent code.
 
 ## 🛠️ Architecture Overview
 
@@ -52,7 +56,7 @@ The application follows a feature-based folder structure for scalability coverag
     ```
 
 3.  **Configure Environment Variables**
-    Create a `.env` file in the root directory:
+    Create a `.env` file in the root directory (see `.env.example` for template):
     ```env
     VITE_SUPABASE_URL=your_supabase_project_url
     VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -63,19 +67,49 @@ The application follows a feature-based folder structure for scalability coverag
     npm run dev
     ```
 
+### Development Workflow
+
+**Code Quality:**
+```bash
+npm run lint          # Check for linting errors
+npm run lint:fix      # Auto-fix linting issues
+npm run format        # Format code with Prettier
+npm run format:check  # Check code formatting
+npm run type-check    # Validate TypeScript types
+```
+
+**Pre-commit Hooks:**
+Git hooks automatically run linting and formatting on staged files before each commit.
+
+
 ### Database Setup (Supabase)
 Run the provided SQL scripts in your Supabase SQL Editor to set up tables and security policies.
 (See `supabase_schema.sql` for the full schema definition).
 
 ## 🚀 Deployment
 
-The app is optimized for deployment on Netlify, Vercel, or any static site host.
+The app features **automated CI/CD** with GitHub Actions.
+
+### Automated Deployment
+Pushing to `main` branch automatically:
+1. Runs linting and type checks
+2. Builds the application
+3. Deploys to Netlify
+
+### Manual Deployment
 
 **Netlify Build Settings:**
 *   **Build Command**: `npm run build`
 *   **Publish Directory**: `dist`
 
-Ensure you add your `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to the deployment platform's Environment Variables.
+**Required Environment Variables:**
+*   `VITE_SUPABASE_URL`
+*   `VITE_SUPABASE_ANON_KEY`
+
+### GitHub Secrets (for CI/CD)
+Add these to your repository secrets:
+*   `NETLIFY_AUTH_TOKEN`
+*   `NETLIFY_SITE_ID`
 
 ## 🔍 For Interviewers
 
